@@ -1,0 +1,135 @@
+{% extends "main.html" %}
+
+{% block header %}
+<title>{{archive.title}} - {{ctx.site.title}}</title>
+<meta name="description" content="{{ctx.site.description}}" />
+<meta name="keywords" content="{{ctx.site.keywords}}" />
+{% endblock %}
+
+{% block left %}
+<div class="col-mb-12 col-8" id="main" role="main">
+    <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+        <h1 class="post-title" itemprop="name headline"><a itemprop="url"
+                href="/archive/{{archive.cid}}">{{archive.title}}</a></h1>
+        <ul class="post-meta">
+            <li itemprop="author" itemscope itemtype="http://schema.org/Person">
+                作者:
+                <a itemprop="name" href="/author/{{ archive.authorId}}" rel="author">
+                    {{archive.user.screenName}}
+                </a>
+            </li>
+            <li>
+                时间:
+                <time datetime="2021-05-02T10:44:34+02:00" itemprop="datePublished">
+                    {{archive.modified|date}}
+                </time>
+            </li>
+            <li>
+                分类:
+                <a href="/category/{{ archive.type.mid}}">{{ archive.type.name}}</a>
+            </li>
+        </ul>
+        <div class="post-content" itemprop="articleBody">
+            <p>{{ archive.text}}</p>
+        </div>
+        <p itemprop="keywords" class="tags">
+            标签:
+            {% for tag in archive.tags %}
+            <a href="/tag/{{tag.mid}}">{{ tag.name}}</a>
+            {% endfor %}
+        </p>
+    </article>
+
+    <div id="comments">
+        <h3>已有 {{comments.total}} 条评论</h3>
+
+        {% macro commentList(list,depth) %}
+        {% if list.length %}
+        {% if depth>0 %}<div class="comment-children" itemprop="discusses">{%endif%}
+            <ol class="comment-list">
+                {% for comment in list %}
+                <li itemscope="" itemtype="http://schema.org/UserComments" id="comment-{{comment.coid}}"
+                    class="comment-body comment-parent comment-odd">
+                    <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
+                        <span itemprop="image">
+                            <img class="avatar" src="http://www.gravatar.com/avatar/?s=32&amp;r=G&amp;d=" alt="Typecho"
+                                width="32" height="32">
+                        </span>
+                        <cite class="fn" itemprop="name">
+                            <a href="{{comment.url}}" rel="external nofollow">{{comment.author}}</a>
+                        </cite>
+                    </div>
+                    <div class="comment-meta">
+                        <a href="#comment-{{comment.coid}}">
+                            <time itemprop="commentTime" datetime="{{archive.created}}">
+                                {{helper.dateFormat(helper.date((comment.created)|int),"yyyy-MM-dd HH:mm:ss") }}
+                            </time>
+                        </a>
+                    </div>
+                    <div class="comment-content" itemprop="commentText">
+                        <p>{{comment.text}}</p>
+                    </div>
+                    <div class="comment-reply">
+                        <a href="?replyTo=1#respond-post-{{comment.coid}}" rel="nofollow"
+                            onclick="return TypechoComment.reply('comment-{{comment.coid}}', {{comment.coid}});">
+                            回复
+                        </a>
+                    </div>
+                    {{ commentList(comment.children,depth+1) }}
+                </li>
+                {% endfor %}
+            </ol>
+            {% if depth>0 %}
+        </div>{%endif%}
+        {% endif %}
+        {% endmacro %}
+
+        {{ commentList(comments.data,0) }}
+
+
+        <div id="respond-post-{{archive.cid}}" class="respond">
+            <div class="cancel-comment-reply">
+                <a id="cancel-comment-reply-link" href="http://127.0.0.2/index.php/archives/4/#respond-post-4"
+                    rel="nofollow" style="display:none" onclick="return TypechoComment.cancelReply();">取消回复</a>
+            </div>
+
+            <h3 id="response">添加新评论</h3>
+            <form method="post" action="/comment/{{archive.cid}}" id="comment-form" role="form">
+                <p>
+                    <label for="author" class="required">称呼</label>
+                    <input type="text" name="author" id="author" class="text" value="" required="">
+                </p>
+                <p>
+                    <label for="mail" class="required">Email</label>
+                    <input type="email" name="mail" id="mail" class="text" value="" required="">
+                </p>
+                <p>
+                    <label for="url">网站</label>
+                    <input type="url" name="url" id="url" class="text" placeholder="http://" value="">
+                </p>
+                <p>
+                    <label for="textarea" class="required">内容</label>
+                    <textarea rows="8" cols="50" name="text" id="textarea" class="textarea" required=""></textarea>
+                </p>
+                <p>
+                    <button type="submit" class="submit">提交评论</button>
+                </p>
+                <input type="hidden" name="_" value="8c67d4025be9be98d800ea4580464d3a">
+            </form>
+        </div>
+    </div>
+
+    <ul class="post-near">
+        <li>上一篇:
+            {% if archive.prev %}
+            <a href="/archive/{{archive.prev.cid}}" title="{{archive.prev.title}}">{{archive.prev.title}}</a>
+            {% else %}没有了 {% endif %}
+        </li>
+        <li>下一篇:
+            {% if archive.next %}
+            <a href="/archive/{{archive.next.cid}}" title="{{archive.next.title}}">{{archive.next.title}}</a>
+            {% else %}没有了 {% endif %}
+        </li>
+    </ul>
+</div><!-- end #main-->
+{% endblock %}

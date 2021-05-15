@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="generator" content="{{ctx.siteInfo.generator}}" />
+    <meta name="template" content="{{ctx.siteInfo.theme}}" />
+
+    {% block header %}{% endblock %}
+
+    <link rel="stylesheet" href="/public/css/grid.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+
+    <!--[if lt IE 9]>
+    <script src="//cdnjscn.b0.upaiyun.com/libs/html5shiv/r29/html5.min.js"></script>
+    <script src="//cdnjscn.b0.upaiyun.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+        (function () {
+            window.TypechoComment = {
+                dom: function (id) {
+                    return document.getElementById(id);
+                },
+
+                create: function (tag, attr) {
+                    var el = document.createElement(tag);
+
+                    for (var key in attr) {
+                        el.setAttribute(key, attr[key]);
+                    }
+
+                    return el;
+                },
+
+                reply: function (cid, coid) {
+                    var comment = this.dom(cid), parent = comment.parentNode,
+                        response = this.dom('respond-post-4'), input = this.dom('comment-parent'),
+                        form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
+                        textarea = response.getElementsByTagName('textarea')[0];
+
+                    if (null == input) {
+                        input = this.create('input', {
+                            'type': 'hidden',
+                            'name': 'parent',
+                            'id': 'comment-parent'
+                        });
+
+                        form.appendChild(input);
+                    }
+
+                    input.setAttribute('value', coid);
+
+                    if (null == this.dom('comment-form-place-holder')) {
+                        var holder = this.create('div', {
+                            'id': 'comment-form-place-holder'
+                        });
+
+                        response.parentNode.insertBefore(holder, response);
+                    }
+
+                    comment.appendChild(response);
+                    this.dom('cancel-comment-reply-link').style.display = '';
+
+                    if (null != textarea && 'text' == textarea.name) {
+                        textarea.focus();
+                    }
+
+                    return false;
+                },
+
+                cancelReply: function () {
+                    var response = this.dom('respond-post-4'),
+                        holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
+
+                    if (null != input) {
+                        input.parentNode.removeChild(input);
+                    }
+
+                    if (null == holder) {
+                        return true;
+                    }
+
+                    this.dom('cancel-comment-reply-link').style.display = 'none';
+                    holder.parentNode.insertBefore(response, holder);
+                    return false;
+                }
+            };
+        })();
+    </script>
+    <script type="text/javascript">
+        (function () {
+            var event = document.addEventListener ? {
+                add: 'addEventListener',
+                triggers: ['scroll', 'mousemove', 'keyup', 'touchstart'],
+                load: 'DOMContentLoaded'
+            } : {
+                add: 'attachEvent',
+                triggers: ['onfocus', 'onmousemove', 'onkeyup', 'ontouchstart'],
+                load: 'onload'
+            }, added = false;
+
+            document[event.add](event.load, function () {
+                var r = document.getElementById('respond-post-4'),
+                    input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = '_';
+                input.value = (function () {
+                    var _xIm = //'tx'
+                        '19d' + '302'//'5s9'
+                        + 'B'//'B'
+                        +//'Foj'
+                        '11' + '1c'//'8d'
+                        +//'U'
+                        'a' + '1a'//'sHc'
+                        +//'BTv'
+                        '6b9' + '8'//'W'
+                        + '94'//'6zZ'
+                        +/* '4L'//'4L' */'' + 'f'//'Gg'
+                        +//'iKE'
+                        '81f' + 'JJQ'//'JJQ'
+                        +//'9m'
+                        '4fe' +//'C'
+                        '77' +//'M'
+                        '1' + 'c15'//'W'
+                        , _9aX = [[6, 7], [23, 26]];
+
+                    for (var i = 0; i < _9aX.length; i++) {
+                        _xIm = _xIm.substring(0, _9aX[i][0]) + _xIm.substring(_9aX[i][1]);
+                    }
+
+                    return _xIm;
+                })();
+
+                if (null != r) {
+                    var forms = r.getElementsByTagName('form');
+                    if (forms.length > 0) {
+                        function append() {
+                            if (!added) {
+                                forms[0].appendChild(input);
+                                added = true;
+                            }
+                        }
+
+                        for (var i = 0; i < event.triggers.length; i++) {
+                            var trigger = event.triggers[i];
+                            document[event.add](trigger, append);
+                            window[event.add](trigger, append);
+                        }
+                    }
+                }
+            });
+        })();
+    </script>
+</head>
+
+<body>
+
+    <header id="header" class="clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="site-name col-mb-12 col-9">
+                    <a id="logo" href="{{ctx.site.siteUrl}}">{{ctx.site.title}}</a>
+                    <p class="description">{{ctx.site.description}}</p>
+                </div>
+                <div class="site-search col-3 kit-hidden-tb">
+                    <form id="search" method="post" action="http://127.0.0.2/" role="search">
+                        <label for="s" class="sr-only">搜索关键字</label>
+                        <input type="text" id="s" name="s" class="text" placeholder="输入关键字搜索" />
+                        <button type="submit" class="submit">搜索</button>
+                    </form>
+                </div>
+                <div class="col-mb-12">
+                    <nav id="nav-menu" class="clearfix" role="navigation">
+                        <a href="{{ctx.site.siteUrl}}">首页</a>
+                        <a href="http://127.0.0.2/index.php/start-page.html" title="关于">关于</a>
+                        <a href="http://127.0.0.2/index.php/5.html" title="联系我们">联系我们</a>
+                    </nav>
+                </div>
+            </div><!-- end .row -->
+        </div>
+    </header><!-- end #header -->
+    <div id="body">
+        <div class="container">
+            <div class="row">
+                {% block left %}{% endblock %}
+                <!-- end #main-->
+
+                <div class="col-mb-12 col-offset-1 col-3 kit-hidden-tb" id="secondary" role="complementary">
+                    <section class="widget">
+                        <h3 class="widget-title">最新文章</h3>
+                        <ul class="widget-list">
+                            {% for archive in lastestArchives %}
+                            <li><a href="/archive/{{archive.cid}}">{{archive.title}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+
+                    <section class="widget">
+                        <h3 class="widget-title">最近回复</h3>
+                        <ul class="widget-list">
+                            {% for comment in lareastComments%}
+                            <li><a href="/archive/{{comment.cid}}/#comment-{{comment.coid}}">{{comment.author}}</a>: {{comment.text}}</li>
+                            {%endfor%}
+                        </ul>
+                    </section>
+
+                    <section class="widget">
+                        <h3 class="widget-title">分类</h3>
+                        <ul class="widget-list">
+
+                            {% macro categoryList(list,depth) %}
+                            {% if list.length %}
+                            <ul class="widget-list">
+                                {% for item in list %}
+                                <li
+                                    class="category-level-{{depth}} {% if depth==0 %}category-parent{%else%}category-child category-level-odd{%endif%}">
+                                    <a href="/category/{{item.mid}}">{{item.name}}</a>
+                                    {{ categoryList(item.children,depth+1) }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            {% endmacro %}
+
+                            {{ categoryList(categorys,0) }}
+                        </ul>
+                    </section>
+
+                    <section class="widget">
+                        <h3 class="widget-title">归档</h3>
+                        <ul class="widget-list">
+                            {% for month in earliestMonth %}
+                            <li><a href="/month/{{month.key}}">{{month.value}}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+
+                    <section class="widget">
+                        <h3 class="widget-title">其它</h3>
+                        <ul class="widget-list">
+                            <li class="last"><a href="/admin/">进入后台 (admin)</a></li>
+                            <li><a href="/action/logout">退出</a></li>
+                            <li><a href="/feed/">文章 RSS</a></li>
+                            <li><a href="/feed/comments/">评论 RSS</a></li>
+                        </ul>
+                    </section>
+
+                </div><!-- end #sidebar -->
+
+            </div><!-- end .row -->
+        </div>
+    </div><!-- end #body -->
+
+    <footer id="footer" role="contentinfo">
+        &copy; 2021 <a href="{{ctx.site.siteUrl}}">{{ctx.site.title}}</a>.
+        由 <a href="http://www.tinyblog.org">TinyBlog</a> 强力驱动.
+    </footer><!-- end #footer -->
+
+</body>
+
+</html>
