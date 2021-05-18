@@ -3,6 +3,14 @@ const { Op } = require("sequelize");
 
 class CommentService extends Service {
 
+    async addComment(param) {
+        const { ctx, service } = this;
+        const comment = await ctx.model.Comment.create(param).catch(() => {
+            return 0;
+        });
+        return comment.coid;
+    }
+
     /**
      * 
      * @param {找到最新的几篇文章} limit 

@@ -1,6 +1,25 @@
 'use strict';
+const { slice, stubTrue } = require('lodash');
+//helper.js也运用在nunjuck模板中的过滤器
+
+var _ = require('lodash');
 
 module.exports = {
+    //获取用户 ip 地址
+    getClientIP: function (req) {
+        return req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP
+            req.connection.remoteAddress || // 判断 connection 的远程 IP
+            req.socket.remoteAddress || // 判断后端的 socket 的 IP
+            req.connection.socket.remoteAddress;
+    },
+    //截取字符串，超出部分替换成制定字符串
+    cutString(str, len, replacement = "...") {
+        str = str.toString();
+        if (str.length <= len) {
+            return str;
+        }
+        return str.slice(0, len) + replacement;
+    },
     // 生成归档文章月份列表
     archiveMonth(startDate) {
         // const { app,config, ctx, service } = this;这些都有值

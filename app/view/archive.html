@@ -1,9 +1,9 @@
 {% extends "main.html" %}
 
 {% block header %}
-<title>{{archive.title}} - {{ctx.site.title}}</title>
-<meta name="description" content="{{ctx.site.description}}" />
-<meta name="keywords" content="{{ctx.site.keywords}}" />
+<title>{{archive.title}} - {{site.title}}</title>
+<meta name="description" content="{{site.description}}" />
+<meta name="keywords" content="{{site.keywords}}" />
 {% endblock %}
 
 {% block left %}
@@ -21,7 +21,7 @@
             <li>
                 时间:
                 <time datetime="2021-05-02T10:44:34+02:00" itemprop="datePublished">
-                    {{archive.modified|date}}
+                    {{archive.modified|cutString(16)}}
                 </time>
             </li>
             <li>
@@ -62,7 +62,7 @@
                     <div class="comment-meta">
                         <a href="#comment-{{comment.coid}}">
                             <time itemprop="commentTime" datetime="{{archive.created}}">
-                                {{helper.dateFormat(helper.date((comment.created)|int),"yyyy-MM-dd HH:mm:ss") }}
+                                {{comment.created|dateFormat("yyyy-MM-dd HH:mm")}}
                             </time>
                         </a>
                     </div>
@@ -114,7 +114,6 @@
                 <p>
                     <button type="submit" class="submit">提交评论</button>
                 </p>
-                <input type="hidden" name="_" value="8c67d4025be9be98d800ea4580464d3a">
             </form>
         </div>
     </div>

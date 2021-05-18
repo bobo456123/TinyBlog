@@ -3,16 +3,17 @@ class AppBootHook {
         this.app = app;
     }
 
-    async beforeStart() {
-        //同步数据库表
-        // await app.model.sync({ force: true });//开发环境使用：强制删除后，再新增。
-        await app.model.sync({});
-    }
-
     configWillLoad() {
         // Ready to call configDidLoad,
         // Config, plugin files are referred,
         // this is the last chance to modify the config.
+
+        //创建nunjuck模板引擎过滤器
+        const filters = require("./app/extend/helper.js");
+        const enableKeys = ["date", "dateFormat", "cutString"];
+        for (let key in filters) {
+            enableKeys.indexOf(key) >= 0 && this.app.nunjucks.addFilter(key, filters[key]);
+        }
     }
 
     configDidLoad() {
@@ -25,6 +26,10 @@ class AppBootHook {
 
     async willReady() {
         // All plugins have started, can do some thing before app ready
+
+        //同步数据库表
+        // await this.app.model.sync({ force: true });//开发环境使用：强制删除后，再新增。
+        await this.app.model.sync({});
     }
 
     async didReady() {

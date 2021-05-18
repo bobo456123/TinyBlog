@@ -1,6 +1,6 @@
-# leafBlog
+# TinyBlog
 
-TinyBLog是个个人博客，极简、轻量、快速是博客的终极定位，技术构成主要涉及Node、egg、mysql。
+TinyBLog个人博客，极简、轻量、快速是博客的终极定位，技术构成主要涉及Node、egg、mysql。
 
 ## QuickStart
 
