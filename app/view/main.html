@@ -38,7 +38,7 @@
 
                 reply: function (cid, coid) {
                     var comment = this.dom(cid), parent = comment.parentNode,
-                        response = this.dom('respond-post-4'), input = this.dom('comment-parent'),
+                        response = this.dom('respond-post-{{archive.cid}}'), input = this.dom('comment-parent'),
                         form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
                         textarea = response.getElementsByTagName('textarea')[0];
 
@@ -73,7 +73,7 @@
                 },
 
                 cancelReply: function () {
-                    var response = this.dom('respond-post-4'),
+                    var response = this.dom('respond-post-{{archive.cid}}'),
                         holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
 
                     if (null != input) {
@@ -176,8 +176,9 @@
                 <div class="col-mb-12">
                     <nav id="nav-menu" class="clearfix" role="navigation">
                         <a href="{{site.siteUrl}}">首页</a>
-                        <a href="http://127.0.0.2/index.php/start-page.html" title="关于">关于</a>
-                        <a href="http://127.0.0.2/index.php/5.html" title="联系我们">联系我们</a>
+                        {%for item in site.navigator%}
+                        <a {%if ctx.params.cid==item.cid%}class="current"{%endif%} href="/archive/{{item.cid}}" title="{{item.title}}">{{item.title}}</a>
+                        {%endfor%}
                     </nav>
                 </div>
             </div><!-- end .row -->
@@ -193,7 +194,7 @@
                     <section class="widget">
                         <h3 class="widget-title">最新文章</h3>
                         <ul class="widget-list">
-                            {% for archive in lastestArchives %}
+                            {% for archive in site.sidebartInfo.lastestArchives %}
                             <li><a href="/archive/{{archive.cid}}">{{archive.title}}</a></li>
                             {% endfor %}
                         </ul>
@@ -202,9 +203,10 @@
                     <section class="widget">
                         <h3 class="widget-title">最近回复</h3>
                         <ul class="widget-list">
-                            {% for comment in lareastComments%}
-                            <li title="{{comment.text}}"><a href="/archive/{{comment.cid}}/#comment-{{comment.coid}}">{{comment.author}}</a>:
-                                {{comment.text|cutString(12)}}</li>
+                            {% for comment in site.sidebartInfo.lareastComments%}
+                            <li title="{{comment.text}}"><a
+                                    href="/archive/{{comment.cid}}/#comment-{{comment.coid}}">{{comment.author}}</a>:
+                                {{comment.text|cutString(0,12)}}</li>
                             {%endfor%}
                         </ul>
                     </section>
@@ -227,14 +229,14 @@
                             {% endif %}
                             {% endmacro %}
 
-                            {{ categoryList(categorys,0) }}
+                            {{ categoryList(site.sidebartInfo.categorys,0) }}
                         </ul>
                     </section>
 
                     <section class="widget">
                         <h3 class="widget-title">归档</h3>
                         <ul class="widget-list">
-                            {% for month in earliestMonth %}
+                            {% for month in site.sidebartInfo.earliestMonth %}
                             <li><a href="/month/{{month.key}}">{{month.value}}</a></li>
                             {% endfor %}
                         </ul>

@@ -16,20 +16,27 @@ class MetaService extends Service {
         };
 
         let allCategory = await ctx.model.Meta.findAll(query);
-        let categorys = this.getCategoryByParent(allCategory, 0);
+        let categorys = this.ctx.helper.getListByParent(allCategory, 0, "mid");
+
         return categorys;
     }
 
-    getCategoryByParent(categorys, mid) {
-        var self = this;
-        return categorys
-            .filter(item => {
-                return item.parent === mid;
-            })
-            .map(function (item) {
-                item.children = self.getCategoryByParent(categorys, item.mid);
-                return item;
-            });
+    /**
+     * 获取头部导航列表
+     * @returns 
+     */
+    getNavigator() {
+        const { ctx } = this;
+        const query = {
+            attributes: ["title", "cid"],
+            where: {
+                type: "page"
+            },
+            order: [
+                ["cid", "asc"]
+            ]
+        };
+        return ctx.model.Content.findAll(query);
     }
 }
 

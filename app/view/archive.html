@@ -11,6 +11,7 @@
     <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
         <h1 class="post-title" itemprop="name headline"><a itemprop="url"
                 href="/archive/{{archive.cid}}">{{archive.title}}</a></h1>
+        {% if archive.type=="post" %}
         <ul class="post-meta">
             <li itemprop="author" itemscope itemtype="http://schema.org/Person">
                 作者:
@@ -21,7 +22,7 @@
             <li>
                 时间:
                 <time datetime="2021-05-02T10:44:34+02:00" itemprop="datePublished">
-                    {{archive.modified|cutString(16)}}
+                    {{archive.modified|cutString(0,16)}}
                 </time>
             </li>
             <li>
@@ -29,19 +30,24 @@
                 <a href="/category/{{ archive.type.mid}}">{{ archive.type.name}}</a>
             </li>
         </ul>
+        {% endif %}
         <div class="post-content" itemprop="articleBody">
             <p>{{ archive.text}}</p>
         </div>
+        {% if archive.type=="post" %}
         <p itemprop="keywords" class="tags">
             标签:
             {% for tag in archive.tags %}
             <a href="/tag/{{tag.mid}}">{{ tag.name}}</a>
             {% endfor %}
         </p>
+        {% endif %}
     </article>
 
     <div id="comments">
+        {% if comments.total>0 %}
         <h3>已有 {{comments.total}} 条评论</h3>
+        {%endif%}
 
         {% macro commentList(list,depth) %}
         {% if list.length %}
@@ -52,11 +58,14 @@
                     class="comment-body comment-parent comment-odd">
                     <div class="comment-author" itemprop="creator" itemscope="" itemtype="http://schema.org/Person">
                         <span itemprop="image">
-                            <img class="avatar" src="http://www.gravatar.com/avatar/?s=32&amp;r=G&amp;d=" alt="Typecho"
-                                width="32" height="32">
+                            <img class="avatar" src="#" alt="Typecho" width="32" height="32">
                         </span>
                         <cite class="fn" itemprop="name">
+                            {%if comment.url!=""%}
                             <a href="{{comment.url}}" rel="external nofollow">{{comment.author}}</a>
+                            {%else%}
+                            {{comment.author}}
+                            {%endif%}
                         </cite>
                     </div>
                     <div class="comment-meta">
@@ -70,7 +79,7 @@
                         <p>{{comment.text}}</p>
                     </div>
                     <div class="comment-reply">
-                        <a href="?replyTo=1#respond-post-{{comment.coid}}" rel="nofollow"
+                        <a href="javascript:;" rel="nofollow"
                             onclick="return TypechoComment.reply('comment-{{comment.coid}}', {{comment.coid}});">
                             回复
                         </a>
@@ -118,6 +127,7 @@
         </div>
     </div>
 
+    {% if archive.type=="post" %}
     <ul class="post-near">
         <li>上一篇:
             {% if archive.prev %}
@@ -130,5 +140,6 @@
             {% else %}没有了 {% endif %}
         </li>
     </ul>
+    {%endif%}
 </div><!-- end #main-->
 {% endblock %}

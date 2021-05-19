@@ -13,12 +13,18 @@ module.exports = {
             req.connection.socket.remoteAddress;
     },
     //截取字符串，超出部分替换成制定字符串
-    cutString(str, len, replacement = "...") {
+    cutString(str, start, end, replacement = "...") {
+        if (!str) {
+            return "";
+        }
         str = str.toString();
-        if (str.length <= len) {
+
+        str = str.slice(start, end);
+
+        if (str.length <= end - start) {
             return str;
         }
-        return str.slice(0, len) + replacement;
+        return str + replacement;
     },
     // 生成归档文章月份列表
     archiveMonth(startDate) {

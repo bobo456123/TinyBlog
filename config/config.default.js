@@ -16,10 +16,13 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1619936548504_2513';
 
   // add your middleware config here
-  config.middleware = ["init"];
+  config.middleware = ["init", "page"];
 
   // config.init = {//配置init中间件，对应中间件中的options参数
-  //   site: "我一点都不好"
+  //   site: "我一点都不好",
+  //   enable: true, // 是否开启该中间件，不写默认开启
+  //   match: ['/','/month'], // 只匹配指定路由，反之如果只忽略指定路由，可以用ignore
+  //   ignore: ['/'] // 不要与match一起使用，避免冲突
   // };
 
   config.view = {
@@ -57,6 +60,10 @@ module.exports = appInfo => {
       // freezeTableName: true, // 防止修改表名为复数
       // underscored: false // 防止驼峰式字段被默认转为下划线
     }
+  };
+
+  config.G = {
+    pagesize: 5
   };
 
   // add your user config here

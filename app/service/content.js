@@ -19,12 +19,19 @@ class ContentService extends Service {
      * @returns 
      */
     async getContents(param) {
-        const { ctx, service } = this;
-        const { index = 1, pagesize = 20 } = param;
+        const { ctx, service, config } = this;
+        const { index = 1, pagesize = config.G.pagesize, month = null } = param;
         var _where = {
             status: "publish",
             type: "post"
         };
+
+        //筛选月份
+        if (month && month.length == 6) {
+            _where.created = {
+                [Op.gte]: new Date(month.slice(0, 4) + "-" + month.slice(4, 6) + "-01")
+            }
+        }
 
         //如果登录状态，并且登录人和 authorId 相等
         //等同于 where status="public" or (authodId=1 and status="private")
@@ -52,10 +59,10 @@ class ContentService extends Service {
                 {
                     model: ctx.model.Meta,
                     as: 'meta',
-                    attributes: ['name']
+                    attributes: ['name', 'mid']
                 }
             ],
-            raw: true,
+            // raw: true,
             where: _where,
             order: [
                 ["created", "desc"]
