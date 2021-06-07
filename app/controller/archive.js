@@ -12,6 +12,7 @@ class ArchiveController extends Controller {
     const { index } = ctx.params;
     let archives = await service.content.getContents({ index: index || 1 });
 
+    //分页数据
     app.locals.site.page = {
       index,
       pagesize: config.G.pagesize,
