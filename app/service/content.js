@@ -20,7 +20,7 @@ class ContentService extends Service {
      */
     async getContents(param) {
         const { ctx, service, config } = this;
-        const { index = 1, pagesize = config.G.pagesize, month = null } = param;
+        const { index = 1, pagesize = config.G.pagesize, month = null, mid = null } = param;
         var _where = {
             status: "publish",
             type: "post"
@@ -28,6 +28,13 @@ class ContentService extends Service {
 
         //筛选月份
         if (month && month.length == 6) {
+            _where.created = {
+                [Op.gte]: new Date(month.slice(0, 4) + "-" + month.slice(4, 6) + "-01")
+            }
+        }
+
+        //筛选分类
+        if (mid) {
             _where.created = {
                 [Op.gte]: new Date(month.slice(0, 4) + "-" + month.slice(4, 6) + "-01")
             }

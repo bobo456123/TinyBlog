@@ -8,10 +8,8 @@ module.exports = app => {
 
   const { router, controller } = app;
   router.get('/', page, controller.archive.index);
-  router.get('/page/:index', page, controller.archive.index);
-
   router.get('/month/:month', controller.archive.month);
-  router.get('/month/:month/page/:index', controller.archive.month);
+  router.get('/category/:mid', controller.archive.category);
 
   router.get('/archive/:cid', controller.archive.show);
   router.post('/comment/:cid', controller.comment.create);

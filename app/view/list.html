@@ -33,14 +33,14 @@
 
     <ol class="page-navigator">
         {%if site.page.isFirst==false%}
-        <li class="prev"><a href="/page/{{ctx.params.index|int-1}}">« 前一页</a></li>
+        <li class="prev"><a href="{{site.page.path}}?p={{site.page.index|int-1}}">« 前一页</a></li>
         {%endif%}
 
         <!-- <li><a href="http://127.0.0.2/index.php/page/1/">1</a></li>
         <li class="current"><a href="http://127.0.0.2/index.php/page/2/">2</a></li> -->
 
         {%if site.page.isLast==false%}
-        <li class="next"><a href="/page/{{ctx.params.index|int+1}}">后一页 »</a></li>
+        <li class="next"><a href="{{site.page.path}}?p={{site.page.index|int+1}}">后一页 »</a></li>
         {%endif%}
     </ol>
 

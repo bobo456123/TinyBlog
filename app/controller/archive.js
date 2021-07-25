@@ -9,14 +9,15 @@ class ArchiveController extends Controller {
    */
   async index() {
     const { ctx, service, config, app } = this;
-    const { index } = ctx.params;
-    let archives = await service.content.getContents({ index: index || 1 });
+    const { p = 1 } = ctx.query;
+    let archives = await service.content.getContents({ index: p || 1 });
 
     //分页数据
     app.locals.site.page = {
-      index,
+      index: p,
       pagesize: config.G.pagesize,
-      isFirst: index <= 1,
+      isFirst: p <= 1,
+      path: ctx.path,
       isLast: archives.length < config.G.pagesize
     };
 
@@ -28,13 +29,35 @@ class ArchiveController extends Controller {
    */
   async month() {
     const { ctx, service, config, app } = this;
-    const { index } = ctx.params;
-    let archives = await service.content.getContents({ index: index || 1, month: ctx.params.month });
+    const { p = 1 } = ctx.query;
+    let archives = await service.content.getContents({ index: p || 1, month: ctx.params.month });
 
+    //分页数据
     app.locals.site.page = {
-      index,
+      index: p,
       pagesize: config.G.pagesize,
-      isFirst: index == 1,
+      isFirst: p <= 1,
+      path: ctx.path,
+      isLast: archives.length < config.G.pagesize
+    };
+
+    await ctx.render('list', { list: archives });
+  }
+
+  /**
+   * 分类归档页
+   */
+  async category() {
+    const { ctx, service, config, app } = this;
+    const { p = 1 } = ctx.query;
+    let archives = await service.content.getContents({ index: p || 1, mid: ctx.params.mid });
+
+    //分页数据
+    app.locals.site.page = {
+      index: p,
+      pagesize: config.G.pagesize,
+      isFirst: p <= 1,
+      path: ctx.path,
       isLast: archives.length < config.G.pagesize
     };
 
