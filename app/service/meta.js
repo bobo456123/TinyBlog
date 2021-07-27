@@ -29,6 +29,46 @@ class MetaService extends Service {
     }
 
     /**
+     * 获取根节点到mid节点的路径
+     * @param {number} mid 
+     */
+    async getCategoryPathArr(mid) {
+        const { ctx, app, service, config } = this;
+        let data = [];
+        if (app.locals.site.sidebartInfo.categorys.length) {
+            data = app.locals.site.sidebartInfo.categorys;
+        } else {
+            data = await getAllCategory();
+        }
+        let paths = this.getPathByMid(mid, data);
+        return paths;
+    }
+
+    /**
+     * 根据mid搜索获取根节点到mid节点间的所有节点
+     * @param {number} mid 
+     * @param {Array} map 
+     */
+    getPathByMid(mid = 0, map) {
+        let self = this;
+        let paths = [];
+        for (let index = 0; index < map.length; index++) {
+            const element = map[index];
+            if (element.mid == mid) {
+                paths.push(element);
+                break;
+            } else {
+                let r = self.getNodeByMid(mid, element.children);
+                if (!!r) {
+                    paths.push(element);
+                    paths.push(r);
+                }
+            }
+        }
+        return paths;
+    }
+
+    /**
      * 获取某个父mid下的所有子mid（含自身），返回一个数组
      * @param {number} parentid 
      */

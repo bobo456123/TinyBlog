@@ -20,11 +20,18 @@ class ContentService extends Service {
      */
     async getContents(param) {
         const { ctx, app, service, config } = this;
-        const { index = 1, pagesize = config.G.pagesize, month = null, mid = null } = param;
+        const { index = 1, pagesize = config.G.pagesize, month = null, mid = null, keyword = "" } = param;
         var _where = {
             status: "publish",
             type: "post"
         };
+
+        //搜索keyword
+        if (keyword) {
+            _where.title = {
+                [Op.substring]: keyword
+            }
+        }
 
         //筛选月份
         if (month && month.length == 6) {

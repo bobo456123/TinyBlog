@@ -10,6 +10,7 @@ module.exports = app => {
   router.get('/', page, controller.archive.index);
   router.get('/month/:month', controller.archive.month);
   router.get('/category/:mid', controller.archive.category);
+  router.get('/search/:keyword', controller.archive.search);
 
   router.get('/archive/:cid', controller.archive.show);
   router.post('/comment/:cid', controller.comment.create);

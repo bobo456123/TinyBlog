@@ -61,6 +61,29 @@ class ArchiveController extends Controller {
       isLast: archives.length < config.G.pagesize
     };
 
+    //获取分类路径
+    let paths = await service.meta.getCategoryPathArr(ctx.params.mid);
+
+    await ctx.render('list', { list: archives, paths });
+  }
+
+  /**
+   * 搜索页面
+   */
+  async search() {
+    const { ctx, service, config, app } = this;
+    const { p = 1 } = ctx.query;
+    let archives = await service.content.getContents({ index: p || 1, keyword: ctx.params.keyword });
+
+    //分页数据
+    app.locals.site.page = {
+      index: p,
+      pagesize: config.G.pagesize,
+      isFirst: p <= 1,
+      path: ctx.path,
+      isLast: archives.length < config.G.pagesize
+    };
+
     await ctx.render('list', { list: archives });
   }
 

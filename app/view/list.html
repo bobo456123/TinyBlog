@@ -11,6 +11,15 @@
     {%if ctx.params.month%}
     <h3 class="archive-title">{{ctx.params.month|cutString(0,4)}}年{{ctx.params.month|cutString(4,6)}}月</h3>
     {%endif%}
+    {%if ctx.params.mid%}
+    <h3 class="archive-title">
+        分类 {%for category in paths%}
+        {{category.name}}{% if loop.last==false %}>{% endif %}{%endfor%} 下的文章
+    </h3>
+    {%endif%}
+    {%if ctx.params.keyword%}
+    <h3 class="archive-title">包含关键字 {{ctx.params.keyword}} 的文章</h3>
+    {%endif%}
 
     {% for archive in list %}
     <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
