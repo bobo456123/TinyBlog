@@ -29,6 +29,10 @@
             <p>{{ archive.text }}</p>
         </div>
     </article>
+    {% else %}
+    <article class="post">
+        <h2 class="post-title">没有找到内容</h2>
+    </article>
     {% endfor %}
 
     <ol class="page-navigator">

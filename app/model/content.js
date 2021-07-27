@@ -25,7 +25,6 @@ module.exports = app => {
         parent: INTEGER(10).UNSIGNED
     });
 
-
     //所属哪个班级，指向班级主键  这是多对一
     Content.associate = function () {
         app.model.Content.belongsTo(app.model.User, {
@@ -34,9 +33,13 @@ module.exports = app => {
             as: "user"
         });
 
-        // app.model.Content.belongsToMany(app.model.Meta, { through: "Relation" });
-
         app.model.Content.belongsToMany(app.model.Meta, { as: 'meta', through: app.model.Relationship, foreignKey: 'cid' });
+        // app.model.Content.belongsToMany(app.model.Meta, {
+        //     as: 'meta',
+        //     through: app.model.Relationship,
+        //     foreignKey: 'cid',
+        //     otherKey: 'mid'
+        // });
     }
 
     return Content;

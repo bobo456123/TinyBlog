@@ -19,7 +19,7 @@ class ContentService extends Service {
      * @returns 
      */
     async getContents(param) {
-        const { ctx, service, config } = this;
+        const { ctx, app, service, config } = this;
         const { index = 1, pagesize = config.G.pagesize, month = null, mid = null } = param;
         var _where = {
             status: "publish",
@@ -34,10 +34,16 @@ class ContentService extends Service {
         }
 
         //筛选分类
+        let _where_meta = null;
         if (mid) {
-            _where.created = {
-                [Op.gte]: new Date(month.slice(0, 4) + "-" + month.slice(4, 6) + "-01")
-            }
+            let mids = await service.meta.getChilrenMids(mid);
+            console.log("-----");
+            console.log(mids);
+            _where_meta = {
+                mid: {
+                    [Op.in]: mids
+                }
+            };
         }
 
         //如果登录状态，并且登录人和 authorId 相等
@@ -66,7 +72,8 @@ class ContentService extends Service {
                 {
                     model: ctx.model.Meta,
                     as: 'meta',
-                    attributes: ['name', 'mid']
+                    attributes: ['name', 'mid'],
+                    where: _where_meta
                 }
             ],
             // raw: true,
