@@ -5,6 +5,22 @@ const { slice, stubTrue } = require('lodash');
 var _ = require('lodash');
 
 module.exports = {
+    success: function ({ ctx, res = "", message = "请求成功！" }) {
+        ctx.body = {
+            code: 0,
+            data: res,
+            message: message
+        };
+        ctx.status = 200;
+    },
+    error: function ({ ctx, code = 1, res = "", message = "请求失败！" }) {
+        ctx.body = {
+            code: code,
+            data: res,
+            message: message
+        };
+        ctx.status = 200;
+    },
     //获取用户 ip 地址
     getClientIP: function (req) {
         return req.headers['x-forwarded-for'] || // 判断是否有反向代理 IP

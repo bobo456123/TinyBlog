@@ -1,7 +1,4 @@
-/* eslint valid-jsdoc: "off" */
-
 'use strict';
-
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -16,7 +13,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1619936548504_2513';
 
   // add your middleware config here
-  config.middleware = ["init", "page"];
+  config.middleware = ["init", "page", "errorHandler"];
 
   // config.init = {//配置init中间件，对应中间件中的options参数
   //   site: "我一点都不好",
@@ -65,6 +62,22 @@ module.exports = appInfo => {
   config.G = {
     pagesize: 5
   };
+
+  config.swaggerdoc = {
+    dirScanner: './app/controller',
+    apiInfo: {
+      title: '开课吧接口',
+      description: '开课吧接口 swagger-ui for egg',
+      version: '1.0.0',
+    },
+    schemes: ['http', 'https'],
+    consumes: ['application/json'],
+    produces: ['application/json'],
+    enableSecurity: false,
+    // enableValidate: true,
+    routerMap: true,
+    enable: true,
+  }
 
   // add your user config here
   const userConfig = {

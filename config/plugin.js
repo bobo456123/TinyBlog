@@ -21,5 +21,17 @@ module.exports = {
   sequelize: {
     enable: true,
     package: "egg-sequelize"
+  },
+  swaggerdoc: {
+    enable: true,
+    package: 'egg-swagger-doc-feat',
+  },
+  validate: {
+    enable: true,
+    package: 'egg-validate',
+  },
+  bcrypt: {
+    enable: true,
+    package: 'egg-bcrypt'
   }
 };
