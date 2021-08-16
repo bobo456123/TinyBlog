@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: IT飞牛
+ * @Date: 2021-05-02 14:24:03
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-16 22:52:56
+ */
 'use strict';
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -32,8 +40,10 @@ module.exports = appInfo => {
   };
 
   config.jwt = {
-    secret: 'tinyblog20210502'
-  };
+    secret: 'tinyblog20210502',
+    enable: true, // default is false
+    match: /^\/api/, // optional
+  }
 
   config.security = {
     csrf: {
