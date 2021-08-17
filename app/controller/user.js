@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-15 18:38:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-16 23:51:52
+ * @LastEditTime: 2021-08-17 21:50:44
  */
 const { Controller } = require("egg");
 
@@ -14,6 +14,19 @@ const { Controller } = require("egg");
 class UserController extends Controller {
     constructor(ctx) {
         super(ctx);
+    }
+
+    /**
+     * @summary 用户列表
+     * @description 
+     * @router post /api/user
+     * @response 200 baseResponse 创建成功（DTO）
+     * 
+     */
+    async index() {
+        let { ctx, service, helper } = this;
+        let result = await service.user.getUsers();
+        ctx.helper.success({ ctx, res: result });
     }
 
     /**
@@ -50,6 +63,8 @@ class UserController extends Controller {
         // 设置响应内容和响应状态码
         ctx.helper.success({ ctx })
     }
+
+
 }
 
 module.exports = UserController;

@@ -3,8 +3,8 @@
  * @version: 
  * @Author: IT飞牛
  * @Date: 2021-08-15 22:07:33
- * @LastEditors: Do not Edit
- * @LastEditTime: 2021-08-15 22:07:41
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-17 23:43:29
  */
 module.exports = (option, app) => {
     return async function (ctx, next) {
@@ -22,7 +22,8 @@ module.exports = (option, app) => {
 
             ctx.body = {
                 code: status,
-                error: error
+                data: {},
+                message: error
             };
 
             if (status === 422) {
