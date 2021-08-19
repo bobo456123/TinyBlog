@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-15 18:38:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-17 21:50:44
+ * @LastEditTime: 2021-08-19 23:19:06
  */
 const { Controller } = require("egg");
 
@@ -47,6 +47,18 @@ class UserController extends Controller {
         const res = await service.userAccess.login(payload)
         // 设置响应内容和响应状态码
         ctx.helper.success({ ctx, res })
+    }
+
+    /**
+     * @summary 验证登录
+     * @description 控制内没有任何业务，jwt中间件自动校验token
+     * @router post /api/isLogin
+     * @response 200 baseResponse 创建成功（DTO）
+     * 
+     */
+    async isLogin() {
+        const { ctx, service } = this
+        ctx.helper.success({ ctx })
     }
 
     /**

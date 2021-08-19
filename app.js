@@ -1,6 +1,44 @@
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: IT飞牛
+ * @Date: 2021-05-02 15:20:38
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-20 00:03:45
+ */
 class AppBootHook {
     constructor(app) {
         this.app = app;
+
+        // const errorHandle = require("@/middleware/error_handler.js");
+
+        // console.log("--------");
+        // console.log(errorHandle);
+        // this.app.use(errorHandle({}, this.app)
+        this.app.use(async function (ctx, next) {
+            try {
+                await next();
+            } catch (err) {
+                // console.log("error...");
+                app.emit("error", err, this);
+                //应答
+                const status = err.status || 500;
+                const error = status === 500 && app.config.env === "prod" ?
+                    "Interval server error" :
+                    err.message;
+
+                ctx.body = {
+                    code: status,
+                    data: {},
+                    message: error
+                };
+
+                if (status === 422) {
+                    ctx.body.detail = err.errors;
+                }
+                ctx.status = 200;
+            }
+        });
     }
 
     configWillLoad() {
