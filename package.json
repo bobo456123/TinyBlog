@@ -17,6 +17,7 @@
     "egg-validate": "^2.0.2",
     "egg-view-nunjucks": "^2.3.0",
     "lodash": "^4.17.21",
+    "module-alias": "^2.2.2",
     "mysql2": "^2.2.5"
   },
   "devDependencies": {
@@ -42,6 +43,10 @@
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
     "autod": "autod"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@": "app"
   },
   "ci": {
     "version": "10"

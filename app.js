@@ -4,14 +4,17 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 15:20:38
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-21 13:45:27
+ * @LastEditTime: 2021-08-21 13:56:21
  */
 class AppBootHook {
     constructor(app) {
         this.app = app;
 
+        //支持路径别名。package.json 中添加“_moduleAliases”
+        require('module-alias/register');
+
         //将错误错误中间件放在最外层，这里是整个app的最外成，执行顺序最靠前；
-        const errorHandle = require("./app/middleware/error_handler.js")({}, this.app);
+        const errorHandle = require("@/middleware/error_handler.js")({}, this.app);
         this.app.use(errorHandle);
     }
 
