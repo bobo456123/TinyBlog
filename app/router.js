@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 14:24:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-21 14:30:19
+ * @LastEditTime: 2021-08-21 14:55:53
  */
 'use strict';
 
@@ -30,9 +30,9 @@ module.exports = app => {
   //api接口
   const apiV1Router = router.namespace('/api/' + app.config.G.version.path)
 
-  router.post('/auth/login', controller.user.login);
-  router.post('/auth/logout', controller.user.logout);
+  router.post('/auth/login', controller.api.user.login);
+  router.post('/auth/logout', controller.api.user.logout);
 
-  apiV1Router.resources('/user', controller.user);
+  apiV1Router.resources('/user', controller.api.user);
 
 };
