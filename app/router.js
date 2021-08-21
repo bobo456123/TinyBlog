@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 14:24:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-17 21:33:10
+ * @LastEditTime: 2021-08-21 14:30:19
  */
 'use strict';
 
@@ -15,6 +15,7 @@ module.exports = app => {
   const page = require("./middleware/page")(app);
 
   const { router, controller } = app;
+
   router.get('/', page, controller.archive.index);
   router.get('/month/:month', controller.archive.month);
   router.get('/category/:mid', controller.archive.category);
@@ -27,8 +28,11 @@ module.exports = app => {
   router.resources('/student', controller.student);
 
   //api接口
+  const apiV1Router = router.namespace('/api/' + app.config.G.version.path)
+
   router.post('/auth/login', controller.user.login);
   router.post('/auth/logout', controller.user.logout);
-  router.resources('/api/user', controller.user);
+
+  apiV1Router.resources('/user', controller.user);
 
 };

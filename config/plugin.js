@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: IT飞牛
+ * @Date: 2021-05-02 14:24:03
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-08-21 14:16:31
+ */
 'use strict';
 
 /** @type Egg.EggPlugin */
@@ -33,5 +41,9 @@ module.exports = {
   bcrypt: {
     enable: true,
     package: 'egg-bcrypt'
+  },
+  routerPlus:{
+    enable: true,
+    package: 'egg-router-plus',
   }
 };

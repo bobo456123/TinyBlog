@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 14:24:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-21 13:30:01
+ * @LastEditTime: 2021-08-21 14:30:09
  */
 'use strict';
 /**
@@ -70,7 +70,10 @@ module.exports = appInfo => {
   };
 
   config.G = {
-    pagesize: 5
+    pagesize: 5,
+    version: {
+      path: "v1"
+    }
   };
 
   config.swaggerdoc = {
