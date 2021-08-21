@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 14:24:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-19 23:46:54
+ * @LastEditTime: 2021-08-21 13:30:01
  */
 'use strict';
 /**
@@ -21,7 +21,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1619936548504_2513';
 
   // add your middleware config here
-  config.middleware = ["errorHandler", "init", "page"];
+  config.middleware = ["init", "page"];
 
   // config.init = {//配置init中间件，对应中间件中的options参数
   //   site: "我一点都不好",
