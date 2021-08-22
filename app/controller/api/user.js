@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-15 18:38:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-21 16:32:08
+ * @LastEditTime: 2021-08-22 15:38:31
  */
 const { Controller } = require("egg");
 
@@ -50,15 +50,16 @@ class UserController extends Controller {
     }
 
     /**
-     * @summary 验证登录
-     * @description 控制内没有任何业务，jwt中间件自动校验token
-     * @router post /api/isLogin
-     * @response 200 baseResponse 创建成功（DTO）
-     * 
+     * @summary 获取当前登录用户信息
+     * @description 
+     * @router post /api/getCurrentInfo
+     * @response 200 baseResponse 创建成功
      */
-    async checkToken() {
-        const { ctx, service } = this
-        ctx.helper.success({ ctx })
+    async getCurrentInfo() {
+        const { ctx, service } = this;
+        const uid = ctx.state.user.data.uid;
+        const result = await service.user.getUserById(uid);
+        ctx.helper.success({ ctx, res: result })
     }
 
     /**

@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 14:24:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-21 16:34:38
+ * @LastEditTime: 2021-08-22 15:37:45
  */
 'use strict';
 
@@ -33,8 +33,9 @@ module.exports = app => {
   router.post('/auth/login', controller.api.user.login);
   router.post('/auth/logout', controller.api.user.logout);
 
-  apiV1Router.post('/checkToken', controller.api.user.checkToken);
+  apiV1Router.get('/getCurrentInfo', controller.api.user.getCurrentInfo);
 
   apiV1Router.resources('/user', controller.api.user);
+
 
 };
