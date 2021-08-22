@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-15 18:38:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-19 23:19:06
+ * @LastEditTime: 2021-08-21 16:32:08
  */
 const { Controller } = require("egg");
 
@@ -56,7 +56,7 @@ class UserController extends Controller {
      * @response 200 baseResponse 创建成功（DTO）
      * 
      */
-    async isLogin() {
+    async checkToken() {
         const { ctx, service } = this
         ctx.helper.success({ ctx })
     }

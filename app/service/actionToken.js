@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-16 21:24:37
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-16 23:51:06
+ * @LastEditTime: 2021-08-21 22:51:47
  */
 const Service = require('egg').Service
 class ActionTokenService extends Service {
@@ -14,7 +14,6 @@ class ActionTokenService extends Service {
             data: {
                 uid: uid
             },
-            exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7)
         }, ctx.app.config.jwt.secret)
     }
 }

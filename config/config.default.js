@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 14:24:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-21 14:30:09
+ * @LastEditTime: 2021-08-22 14:50:17
  */
 'use strict';
 /**
@@ -43,6 +43,9 @@ module.exports = appInfo => {
     secret: 'tinyblog20210502',
     enable: true, // default is false
     match: /^\/api/, // optional
+    sign: {
+      expiresIn: 60 * 60 * 2   //多少s后过期。actionToken.js中,jwt.sing(plyload,secret,{expiresIn:number})会被合并，调用时设置优先级更高;
+    }
   }
 
   config.security = {
