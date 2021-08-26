@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 14:24:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-22 15:37:45
+ * @LastEditTime: 2021-08-26 23:12:30
  */
 'use strict';
 
@@ -28,14 +28,14 @@ module.exports = app => {
   router.resources('/student', controller.student);
 
   //api接口
-  const apiV1Router = router.namespace('/api/' + app.config.G.version.path)
+  let version = app.config.G.version;
+  router.post(`/${version}/auth/login`, controller.api.user.login);
+  router.post(`/${version}/auth/logout`, controller.api.user.logout);
 
-  router.post('/auth/login', controller.api.user.login);
-  router.post('/auth/logout', controller.api.user.logout);
+  router.get(`/${version}/api/getCurrentInfo`, controller.api.user.getCurrentInfo);
 
-  apiV1Router.get('/getCurrentInfo', controller.api.user.getCurrentInfo);
-
-  apiV1Router.resources('/user', controller.api.user);
+  router.resources(`/${version}/api/user`, controller.api.user);
+  router.resources(`/${version}/api/post`, controller.api.post);
 
 
 };

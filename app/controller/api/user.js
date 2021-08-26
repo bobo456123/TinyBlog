@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-15 18:38:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-22 15:38:31
+ * @LastEditTime: 2021-08-26 22:19:46
  */
 const { Controller } = require("egg");
 
@@ -52,7 +52,7 @@ class UserController extends Controller {
     /**
      * @summary 获取当前登录用户信息
      * @description 
-     * @router post /api/getCurrentInfo
+     * @router get /api/getCurrentInfo
      * @response 200 baseResponse 创建成功
      */
     async getCurrentInfo() {

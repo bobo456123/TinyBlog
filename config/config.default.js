@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 14:24:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-22 14:50:17
+ * @LastEditTime: 2021-08-26 23:04:29
  */
 'use strict';
 /**
@@ -42,7 +42,7 @@ module.exports = appInfo => {
   config.jwt = {
     secret: 'tinyblog20210502',
     enable: true, // default is false
-    match: /^\/api/, // optional
+    match: /\/api/, // optional
     sign: {
       expiresIn: 60 * 60 * 2   //多少s后过期。actionToken.js中,jwt.sing(plyload,secret,{expiresIn:number})会被合并，调用时设置优先级更高;
     }
@@ -64,27 +64,26 @@ module.exports = appInfo => {
     timezone: "+08:00",
     define: {                   // model的全局配置
       schema: "tiny",           // 前缀
-      schemaDelimiter: '_',    // 连字符
+      schemaDelimiter: '_',     // 连字符
       timestamps: false,        // 添加create,update,delete时间戳
-      // paranoid: true,      // 添加软删除
+      // paranoid: true,        // 添加软删除
       // freezeTableName: true, // 防止修改表名为复数
-      // underscored: false // 防止驼峰式字段被默认转为下划线
+      // underscored: false     // 防止驼峰式字段被默认转为下划线
     }
   };
 
   config.G = {
     pagesize: 5,
-    version: {
-      path: "v1"
-    }
+    version: "v1"
   };
 
   config.swaggerdoc = {
     dirScanner: './app/controller',
+    basePath: "/" + config.G.version,
     apiInfo: {
-      title: '开课吧接口',
-      description: '开课吧接口 swagger-ui for egg',
-      version: '1.0.0',
+      title: 'TinyBlog接口',
+      description: 'TinyBlog接口 swagger-ui for egg',
+      version: config.G.version,
     },
     schemes: ['http', 'https'],
     consumes: ['application/json'],
