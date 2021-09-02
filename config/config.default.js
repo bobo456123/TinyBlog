@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 14:24:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-26 23:04:29
+ * @LastEditTime: 2021-09-02 20:28:34
  */
 'use strict';
 /**
@@ -88,10 +88,26 @@ module.exports = appInfo => {
     schemes: ['http', 'https'],
     consumes: ['application/json'],
     produces: ['application/json'],
-    enableSecurity: false,
+    enableSecurity: true,
     // enableValidate: true,
     routerMap: true,
     enable: true,
+    securityDefinitions: {
+      apikey: {
+        type: 'apiKey',
+        name: 'Authorization',
+        in: 'header',
+      },
+      // oauth2: {
+      //   type: 'oauth2',
+      //   tokenUrl: 'http://petstore.swagger.io/oauth/dialog',
+      //   flow: 'password',
+      //   scopes: {
+      //     'write:access_token': 'write access_token',
+      //     'read:access_token': 'read access_token',
+      //   },
+      // },
+    },
   }
 
   // add your user config here

@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-26 21:13:42
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-26 22:13:44
+ * @LastEditTime: 2021-09-02 22:29:59
  */
 
 const { Controller } = require("egg");
@@ -22,12 +22,16 @@ class PostController extends Controller {
      * @description 
      * @router get /api/post
      * @response 200 baseResponse 创建成功（DTO）
+     * @apikey
      * 
      */
     async index() {
-        let { ctx, service, helper } = this;
-        let result = await service.content.getLastestContents(9);
-        ctx.helper.success({ ctx, res: result });
+        let { ctx, service, helper, config } = this;
+        let query = ctx.query;
+        let index = query.index || 1,
+            pagesize = query.pagesize || config.G.pagesize;
+        let result = await service.content.getContents({ index, pagesize });
+        ctx.helper.success({ ctx, res: { index: index, data: result } });
     }
 }
 

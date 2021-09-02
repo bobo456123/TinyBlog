@@ -20,7 +20,7 @@ class ContentService extends Service {
      */
     async getContents(param) {
         const { ctx, app, service, config } = this;
-        const { index = 1, pagesize = config.G.pagesize, month = null, mid = null, keyword = "" } = param;
+        const { index = 1, pagesize = config.G.pagesize, month = null, mid = null, keyword = "", order = ["created", "desc"] } = param;
         var _where = {
             status: "publish",
             type: "post"
@@ -86,7 +86,8 @@ class ContentService extends Service {
             // raw: true,
             where: _where,
             order: [
-                ["created", "desc"]
+                order,
+                ["cid", "desc"]
             ]
         };
 
