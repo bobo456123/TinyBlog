@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: IT飞牛
+ * @Date: 2021-05-13 22:50:16
+ * @LastEditors: 
+ * @LastEditTime: 2021-09-06 21:47:57
+ */
 const { Service } = require('egg');
 const { Op } = require("sequelize");
 
@@ -26,7 +34,7 @@ class CommentService extends Service {
         const query = {
             limit: limit,
             offset: 0,
-            attributes: ['cid', 'coid', 'author', 'authorId', 'text'],
+            attributes: ['cid', 'coid', 'author', 'authorId', 'text', "created"],
             where: _where,
             order: [
                 ["created", "desc"]

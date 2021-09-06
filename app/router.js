@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 14:24:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-26 23:12:30
+ * @LastEditTime: 2021-09-06 21:12:25
  */
 'use strict';
 
@@ -33,6 +33,7 @@ module.exports = app => {
   router.post(`/${version}/auth/logout`, controller.api.user.logout);
 
   router.get(`/${version}/api/getCurrentInfo`, controller.api.user.getCurrentInfo);
+  router.get(`/${version}/api/comment/getLastestComments`, controller.api.comment.getLastestComments);
 
   router.resources(`/${version}/api/user`, controller.api.user);
   router.resources(`/${version}/api/post`, controller.api.post);
