@@ -74,7 +74,7 @@ class ContentService extends Service {
                 {
                     model: ctx.model.User,
                     as: 'user',
-                    attributes: ['screenName']
+                    attributes: ['uid', 'screenName']
                 },
                 {
                     model: ctx.model.Meta,

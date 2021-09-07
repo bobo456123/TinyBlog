@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-26 21:13:42
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-09-06 20:53:08
+ * @LastEditTime: 2021-09-07 20:07:24
  */
 
 const { Controller } = require("egg");
@@ -28,9 +28,8 @@ class PostController extends Controller {
     async index() {
         let { ctx, service, helper, config } = this;
         let query = ctx.query;
-        let index = query.index || 1,
-            pagesize = query.pagesize || config.G.pagesize;
-        pagesize = parseInt(pagesize);
+        let index = parseInt(query.index) || 1,
+            pagesize = parseInt(query.pagesize) || config.G.pagesize;
         let result = await service.content.getContents({ index, pagesize });
         ctx.helper.success({ ctx, res: { index: index, data: result } });
     }
