@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: IT飞牛
+ * @Date: 2021-05-02 22:19:04
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-09-25 23:24:17
+ */
 module.exports = app => {
     const { STRING, INTEGER, TEXT, CHAR } = app.Sequelize;
     const Content = app.model.define("content", {
@@ -31,6 +39,12 @@ module.exports = app => {
             foreignKey: "authorId",
             targetKey: "uid",
             as: "user"
+        });
+        
+        app.model.User.hasMany(app.model.Content, {
+            foreignKey: "authorId",
+            targetKey: "uid",
+            as: "content"
         });
 
         app.model.Content.belongsToMany(app.model.Meta, { as: 'meta', through: app.model.Relationship, foreignKey: 'cid' });

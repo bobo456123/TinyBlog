@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-26 21:13:42
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-09-07 20:07:24
+ * @LastEditTime: 2021-09-14 23:15:08
  */
 
 const { Controller } = require("egg");
@@ -23,7 +23,6 @@ class PostController extends Controller {
      * @router get /api/post
      * @response 200 baseResponse 创建成功（DTO）
      * @apikey
-     * 
      */
     async index() {
         let { ctx, service, helper, config } = this;
@@ -32,6 +31,17 @@ class PostController extends Controller {
             pagesize = parseInt(query.pagesize) || config.G.pagesize;
         let result = await service.content.getContents({ index, pagesize });
         ctx.helper.success({ ctx, res: { index: index, data: result } });
+    }
+
+    async show() {
+        let { ctx, service, helper, config } = this;
+        let { id } = ctx.params;
+        if (!id) {
+            ctx.helper.error({ ctx, res: archive });
+        }
+        let archive = await service.content.findOne(id);
+
+        ctx.helper.success({ ctx, res: archive });
     }
 }
 

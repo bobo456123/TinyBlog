@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-16 00:02:57
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-22 21:07:58
+ * @LastEditTime: 2021-09-25 22:31:12
  */
 const { Service } = require("egg");
 const { OpF } = require("sequelize");
@@ -19,12 +19,23 @@ class UserService extends Service {
      * @param {*}
      * @return {*}
      */
-    async getUsers() {
-        const { ctx, service } = this;
-        const param = {
-            attributes: ["uid", "name", "password"]
+    async getUsers(param) {
+        const { ctx, app, service, config } = this;
+        const { index = 1, pagesize = config.G.pagesize, keyword = "", order = ["created", "desc"] } = param;
+        const option = {
+            limit: pagesize,
+            offset: (index - 1) * pagesize,
+            attributes: ["uid", "name", "mail", "url", "screenName", "group"],
+            include: [
+                {
+                    model: ctx.model.Content,
+                    attributes: ["cid"],
+                    as: 'content',
+                }
+            ],
+
         };
-        let result = await ctx.model.User.findAll(param)
+        let result = await ctx.model.User.findAll(option)
         return result;
     }
 
