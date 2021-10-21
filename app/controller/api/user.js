@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-15 18:38:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-09-25 22:28:13
+ * @LastEditTime: 2021-10-21 22:12:58
  */
 const { Controller } = require("egg");
 
@@ -30,6 +30,27 @@ class UserController extends Controller {
             pagesize = parseInt(query.pagesize) || config.G.pagesize;
         let result = await service.user.getUsers({ index, pagesize });
         ctx.helper.success({ ctx, res: { index: index, data: result } });
+    }
+
+    /**
+     * @summary 新增用户
+     * @description 
+     * @router post /api/user
+     * @request body addUser *body（DTO）
+     * @response 200 baseResponse 创建成功（DTO）
+     * @apikey
+     */
+    async create() {
+        const { ctx, service } = this
+        // 校验参数
+        ctx.validate(ctx.rule.addUser);
+        // 组装参数
+        const payload = ctx.request.body || {};
+
+        // 调用 Service 进行业务处理
+        const res = await service.user.addUser(payload)
+        // 设置响应内容和响应状态码
+        ctx.helper.success({ ctx, res })
     }
 
     /**

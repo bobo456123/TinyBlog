@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: IT飞牛
+ * @Date: 2021-05-11 23:38:08
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-10-21 22:01:30
+ */
 module.exports = (options, app) => {
     return async function init(ctx, next) {
         //模板调用,{{site.***}}
@@ -26,7 +34,7 @@ module.exports = (options, app) => {
 
         //归档列表
         let earliestOneContent = await service.content.getEarliestOne();
-        let earliestMonth = ctx.helper.archiveMonth(ctx.helper.date(earliestOneContent.created));
+        let earliestMonth = earliestOneContent && ctx.helper.archiveMonth(ctx.helper.date(earliestOneContent.created)) || [];
 
         //获取最新评论
         let lareastComments = await ctx.service.comment.getLastestComments();

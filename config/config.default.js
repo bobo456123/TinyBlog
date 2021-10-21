@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-05-02 14:24:03
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-09-02 20:28:34
+ * @LastEditTime: 2021-10-21 22:11:38
  */
 'use strict';
 /**
@@ -66,6 +66,8 @@ module.exports = appInfo => {
       schema: "tiny",           // 前缀
       schemaDelimiter: '_',     // 连字符
       timestamps: false,        // 添加create,update,delete时间戳
+      charset: 'utf8',          // 设置每张表中的每个字段的默认字符集
+      collate: 'utf8_general_ci',   // 设置字符集排序
       // paranoid: true,        // 添加软删除
       // freezeTableName: true, // 防止修改表名为复数
       // underscored: false     // 防止驼峰式字段被默认转为下划线

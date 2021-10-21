@@ -3,8 +3,8 @@
  * @version: 1.0.0
  * @Author: IT飞牛
  * @Date: 2021-05-13 22:50:16
- * @LastEditors: 
- * @LastEditTime: 2021-09-06 21:47:57
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-10-21 23:24:34
  */
 const { Service } = require('egg');
 const { Op } = require("sequelize");
@@ -13,15 +13,15 @@ class CommentService extends Service {
 
     async addComment(param) {
         const { ctx, service } = this;
-        const comment = await ctx.model.Comment.create(param).catch(() => {
-            return 0;
+        const comment = await ctx.model.Comment.create(param).catch((err) => {
+            ctx.throw(500,err);
         });
         return comment.coid;
     }
 
     /**
      * 
-     * @param {找到最新的几篇文章} limit 
+     * @param {number} limit 找到最新的几篇文章
      * @returns 
      */
     async getLastestComments(limit = 5) {

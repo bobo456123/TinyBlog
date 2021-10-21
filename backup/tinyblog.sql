@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2021-05-19 23:59:01
+Date: 2021-10-21 21:56:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -49,7 +49,7 @@ CREATE TABLE `tiny_comments` (
   `parent` int(10) unsigned DEFAULT NULL,
   `created` datetime NOT NULL,
   PRIMARY KEY (`coid`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of tiny_comments
@@ -59,6 +59,7 @@ INSERT INTO `tiny_comments` VALUES ('4', '15', '2222', '0', '0', '491153409@qq.c
 INSERT INTO `tiny_comments` VALUES ('5', '15', '3333333333333333', '0', '0', '491153409@qq.com', '', null, null, '333333333333333333333333333333333', 'comment', 'approved', '0', '2021-05-19 20:01:31');
 INSERT INTO `tiny_comments` VALUES ('6', '15', '44444', '0', '0', '491153409@qq.com', '', null, null, '44444', 'comment', 'approved', '0', '2021-05-19 20:19:47');
 INSERT INTO `tiny_comments` VALUES ('7', '15', '123', '0', '0', '491153409@qq.com', '', null, null, '43242424242', 'comment', 'approved', '6', '2021-05-19 20:19:58');
+INSERT INTO `tiny_comments` VALUES ('8', '15', '???', '0', '0', '491153409@qq.com', '', null, null, '333', 'comment', 'approved', '7', '2021-07-19 21:57:42');
 
 -- ----------------------------
 -- Table structure for `tiny_contents`
@@ -249,11 +250,11 @@ CREATE TABLE `tiny_relationships` (
 -- Records of tiny_relationships
 -- ----------------------------
 INSERT INTO `tiny_relationships` VALUES ('1', '1');
-INSERT INTO `tiny_relationships` VALUES ('3', '1');
-INSERT INTO `tiny_relationships` VALUES ('4', '1');
+INSERT INTO `tiny_relationships` VALUES ('3', '6');
 INSERT INTO `tiny_relationships` VALUES ('4', '2');
-INSERT INTO `tiny_relationships` VALUES ('7', '1');
-INSERT INTO `tiny_relationships` VALUES ('9', '1');
+INSERT INTO `tiny_relationships` VALUES ('4', '7');
+INSERT INTO `tiny_relationships` VALUES ('7', '3');
+INSERT INTO `tiny_relationships` VALUES ('9', '3');
 INSERT INTO `tiny_relationships` VALUES ('10', '1');
 INSERT INTO `tiny_relationships` VALUES ('11', '1');
 INSERT INTO `tiny_relationships` VALUES ('12', '1');
@@ -287,9 +288,9 @@ CREATE TABLE `tiny_students` (
 DROP TABLE IF EXISTS `tiny_users`;
 CREATE TABLE `tiny_users` (
   `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) DEFAULT NULL,
+  `username` varchar(32) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL,
-  `mail` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
   `url` varchar(200) DEFAULT NULL,
   `screenName` varchar(32) DEFAULT NULL,
   `created` int(10) unsigned DEFAULT '0',
@@ -298,11 +299,14 @@ CREATE TABLE `tiny_users` (
   `group` varchar(16) DEFAULT 'visitor',
   `authCode` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`uid`),
-  UNIQUE KEY `name` (`name`),
-  UNIQUE KEY `mail` (`mail`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `name` (`username`),
+  UNIQUE KEY `mail` (`email`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tiny_users
 -- ----------------------------
-INSERT INTO `tiny_users` VALUES ('1', 'admin', '$P$B2EMNLgelrrJlEeTtyoLyxkGuOMIAP/', 'webmaster@yourdomain.com', 'http://www.typecho.org', 'adminer', '1619923096', '1620397239', '1620392395', 'administrator', '8558b9364669662626c2a2e53c499165');
+INSERT INTO `tiny_users` VALUES ('1', 'admin', '$2a$10$ifJGHaK8jI5BQ8Udw7cfEu11x785ZiyOomLsJD2uSovKH0QxOG1di', 'webmaster@yourdomain.com', 'http://www.typecho.org', 'adminer', '1619923096', '1620397239', '1620392395', 'administrator', '8558b9364669662626c2a2e53c499165');
+INSERT INTO `tiny_users` VALUES ('2', 'user01', '123', 'user01@tinyblog.com', 'http://www.tinyblog.6feel.com', '管理员不在家', '0', '0', '0', 'administrator', null);
+INSERT INTO `tiny_users` VALUES ('3', 'user02', '123', 'user02@tinyblog.com', 'http://www.tinyblog.6feel.com', '管理员不在家', '0', '0', '0', 'administrator', null);
+INSERT INTO `tiny_users` VALUES ('4', 'user03', '123', 'user03@tinyblog.com', 'http://www.tinyblog.6feel.com', '管理员不在家', '0', '0', '0', 'administrator', null);

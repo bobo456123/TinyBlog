@@ -4,13 +4,13 @@
  * @Author: IT飞牛
  * @Date: 2021-08-16 21:24:57
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-16 23:51:25
+ * @LastEditTime: 2021-10-21 22:45:52
  */
 const Service = require('egg').Service
 class UserAccessService extends Service {
     async login(payload) {
         const { ctx, service } = this
-        const user = await service.user.getUserByName(payload.name);
+        const user = await service.user.getUserByName(payload.username);
         if (!user) {
             ctx.throw(404, 'user not found')
         }

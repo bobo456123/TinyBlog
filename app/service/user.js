@@ -4,19 +4,34 @@
  * @Author: IT飞牛
  * @Date: 2021-08-16 00:02:57
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-09-25 22:31:12
+ * @LastEditTime: 2021-10-21 22:52:41
  */
 const { Service } = require("egg");
-const { OpF } = require("sequelize");
+const { Op } = require("sequelize");
 
 class UserService extends Service {
     constructor(ctx) {
         super(ctx);
     }
     /**
+     * @name: 新增用户
+     * @msg: 
+     * @param {object}
+     * @return {number}
+     */
+    async addUser(param) {
+        const { ctx, app, service, config } = this;
+        const user = await ctx.model.User.create(param).catch((err) => {
+            ctx.throw(404, err);
+        });
+
+        return user.uid;
+    }
+
+    /**
      * @name: 获取用户列表
      * @msg: 
-     * @param {*}
+     * @param {object}
      * @return {*}
      */
     async getUsers(param) {
@@ -25,7 +40,7 @@ class UserService extends Service {
         const option = {
             limit: pagesize,
             offset: (index - 1) * pagesize,
-            attributes: ["uid", "name", "mail", "url", "screenName", "group"],
+            attributes: ["uid", "username", "email", "url", "screenName", "group"],
             include: [
                 {
                     model: ctx.model.Content,
@@ -40,17 +55,17 @@ class UserService extends Service {
     }
 
     /**
-     * @name: 根据用户名获取用户信息
+     * @username: 根据用户名获取用户信息
      * @msg: 
-     * @param {string} name 用户名
+     * @param {string} username 用户名
      * @return {object} 
      */
-    async getUserByName(name) {
+    async getUserByName(username) {
         const { ctx, service } = this;
         const param = {
-            attributes: ["uid", "name", "password", "mail", "url", "screenName", "created", "activated", "group"],
+            attributes: ["uid", "username", "password", "email", "url", "screenName", "created", "activated", "group"],
             where: {
-                name: name
+                username: username
             }
         };
         let result = await ctx.model.User.findOne(param)
@@ -58,7 +73,7 @@ class UserService extends Service {
     }
 
     /**
-     * @name: 根据用户id获取用户信息
+     * @username: 根据用户id获取用户信息
      * @msg: 
      * @param {number} uid 
      * @return {object} 
@@ -69,7 +84,7 @@ class UserService extends Service {
             return null;
         }
         const param = {
-            attributes: ["uid", "name", "mail", "url", "screenName", "created", "activated", "group"],
+            attributes: ["uid", "username", "email", "url", "screenName", "created", "activated", "group"],
             where: {
                 uid: uid
             }

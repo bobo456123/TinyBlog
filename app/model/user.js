@@ -1,12 +1,20 @@
+/*
+ * @Descripttion: 
+ * @version: 1.0.0
+ * @Author: IT飞牛
+ * @Date: 2021-05-02 21:20:48
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-10-21 22:14:15
+ */
 module.exports = app => {
     const { STRING, INTEGER, DATE } = app.Sequelize;
     const User = app.model.define("user", {
         //自动生成id
         uid: { type: INTEGER(10).UNSIGNED, primaryKey: true, autoIncrement: true },
 
-        name: STRING(32),
+        username: { type: STRING(32), unique: true },
         password: STRING(64),
-        mail: STRING(200),
+        email: { type: STRING(200) },
         url: STRING(200),
         screenName: STRING(32),
 

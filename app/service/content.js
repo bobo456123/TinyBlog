@@ -79,7 +79,7 @@ class ContentService extends Service {
                 {
                     model: ctx.model.Meta,
                     as: 'meta',
-                    attributes: ['name', 'mid'],
+                    attributes: ['username', 'mid'],
                     where: _where_meta
                 }
             ],
@@ -137,7 +137,7 @@ class ContentService extends Service {
                 {
                     model: ctx.model.Meta,
                     as: 'meta',
-                    attributes: ["mid", "name", "type"]
+                    attributes: ["mid", "username", "type"]
                 }
             ],
             raw: false,
