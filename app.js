@@ -44,7 +44,7 @@ class AppBootHook {
 
         //同步数据库表
         // await this.app.model.sync({ force: true });//开发环境使用：强制删除后，再新增。
-        await this.app.model.sync({});
+        await this.app.model.sync({});  
     }
 
     async didReady() {

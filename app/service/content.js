@@ -79,7 +79,7 @@ class ContentService extends Service {
                 {
                     model: ctx.model.Meta,
                     as: 'meta',
-                    attributes: ['username', 'mid'],
+                    attributes: ['name', 'mid'],
                     where: _where_meta
                 }
             ],

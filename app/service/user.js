@@ -21,6 +21,7 @@ class UserService extends Service {
      */
     async addUser(param) {
         const { ctx, app, service, config } = this;
+        param.password = await ctx.genHash(param.password);
         const user = await ctx.model.User.create(param).catch((err) => {
             ctx.throw(404, err);
         });

@@ -14,7 +14,7 @@ module.exports = {
             required: true,
             description: '用户名',
             example: 'user01',
-            format: /^\w{6,12}$/,
+            format: /^\w{5,12}$/,
         },
         email: {
             type: 'string',
@@ -33,19 +33,22 @@ module.exports = {
             type: 'string',
             required: true,
             description: '密码',
-            example: '123123',
+            example: '123',
+            format: /^\w{3,18}$/,
         },
         confirm: {
             type: 'string',
-            required: false,
+            required: true,
             description: '用户密码确认',
-            example: '123123'
+            example: '123',
+            format: /^\w{3,18}$/,
         },
         url: {
             type: 'string',
             required: false,
             description: '个人主页地址',
-            example: 'http://www.tinyblog.6feel.com'
+            example: 'http://www.tinyblog.6feel.com',
+            format: /^https?:\/\//
         },
         group: {
             type: 'string',

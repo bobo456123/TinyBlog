@@ -16,13 +16,18 @@ module.exports = app => {
         password: STRING(64),
         email: { type: STRING(200) },
         url: STRING(200),
-        screenName: STRING(32),
+        screenName: STRING(32), 
 
-        created: INTEGER(10).UNSIGNED,
-        activated: INTEGER(10).UNSIGNED,
         logged: INTEGER(10).UNSIGNED,
         group: STRING(16),
         authCode: STRING(64)
+    }, {
+        // 不要忘记启用时间戳！
+        timestamps: true,
+        // 想要 createdAt 但是希望名称叫做 created
+        createdAt: "created",
+        // // 不想要 updatedAt
+        updatedAt: "activated"
     });
     return User;
 }

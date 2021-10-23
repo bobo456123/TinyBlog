@@ -39,6 +39,10 @@ module.exports = appInfo => {
     allowMethods: `GET,HEAD,PUT,POST,DELETE,PATCH`
   };
 
+  config.bcrypt = {
+    saltRounds: 10 // default 10
+  };
+
   config.jwt = {
     secret: 'tinyblog20210502',
     enable: true, // default is false

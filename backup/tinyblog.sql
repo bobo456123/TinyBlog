@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本地连接
-Source Server Version : 50617
+Source Server         : localhost
+Source Server Version : 50714
 Source Host           : localhost:3306
 Source Database       : tinyblog
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50714
 File Encoding         : 65001
 
-Date: 2021-10-21 21:56:36
+Date: 2021-10-23 23:30:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -293,20 +293,19 @@ CREATE TABLE `tiny_users` (
   `email` varchar(200) DEFAULT NULL,
   `url` varchar(200) DEFAULT NULL,
   `screenName` varchar(32) DEFAULT NULL,
-  `created` int(10) unsigned DEFAULT '0',
-  `activated` int(10) unsigned DEFAULT '0',
-  `logged` int(10) unsigned DEFAULT '0',
-  `group` varchar(16) DEFAULT 'visitor',
+  `logged` int(10) unsigned DEFAULT NULL,
+  `group` varchar(16) DEFAULT NULL,
   `authCode` varchar(64) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `activated` datetime NOT NULL,
   PRIMARY KEY (`uid`),
-  UNIQUE KEY `name` (`username`),
-  UNIQUE KEY `mail` (`email`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tiny_users
 -- ----------------------------
-INSERT INTO `tiny_users` VALUES ('1', 'admin', '$2a$10$ifJGHaK8jI5BQ8Udw7cfEu11x785ZiyOomLsJD2uSovKH0QxOG1di', 'webmaster@yourdomain.com', 'http://www.typecho.org', 'adminer', '1619923096', '1620397239', '1620392395', 'administrator', '8558b9364669662626c2a2e53c499165');
-INSERT INTO `tiny_users` VALUES ('2', 'user01', '123', 'user01@tinyblog.com', 'http://www.tinyblog.6feel.com', '管理员不在家', '0', '0', '0', 'administrator', null);
-INSERT INTO `tiny_users` VALUES ('3', 'user02', '123', 'user02@tinyblog.com', 'http://www.tinyblog.6feel.com', '管理员不在家', '0', '0', '0', 'administrator', null);
-INSERT INTO `tiny_users` VALUES ('4', 'user03', '123', 'user03@tinyblog.com', 'http://www.tinyblog.6feel.com', '管理员不在家', '0', '0', '0', 'administrator', null);
+INSERT INTO `tiny_users` VALUES ('4', 'user02', '$2a$10$fXssyeVy5sf3/jKDTHn9xOWBMwGCYoWAfWMhzF/DeLRF02W4qGymG', 'user02@tinyblog.com', 'http://www.tinyblog.6feel.com', '管理员不在家', null, 'administrator', null, '2021-10-23 20:45:20', '2021-10-23 20:45:20');
+INSERT INTO `tiny_users` VALUES ('6', 'user03', '$2a$10$kzzeZlHzCt6e9ctfY3ncWuln6ZMTPst64NB8tGeqL2/KBwbopu3/m', 'user02@tinyblog.com', 'http://www.tinyblog.6feel.com', '管理员不在家', null, 'administrator', null, '2021-10-23 20:45:46', '2021-10-23 20:45:46');
+INSERT INTO `tiny_users` VALUES ('9', 'user01', '$2a$10$SJD.9oTnJwOh9y4WBiG0oOUb/04lsqxM.hDLADQLpQnEHk07UgaBW', 'user02@tinyblog.com', 'http://www.tinyblog.6feel.com', '管理员不在家', null, 'administrator', null, '2021-10-23 23:22:37', '2021-10-23 23:22:37');
+INSERT INTO `tiny_users` VALUES ('10', 'admin', '$2a$10$OthRWgx5yXNsNdxs4sowFO474a.VnlNJqz4Sn80uFjwCa.2saOqZS', 'admin@tinyblog.com', 'http://www.tinyblog.6feel.com', '管理员不在家', null, 'administrator', null, '2021-10-23 23:24:44', '2021-10-23 23:24:44');
