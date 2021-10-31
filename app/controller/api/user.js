@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-15 18:38:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-10-21 22:12:58
+ * @LastEditTime: 2021-10-31 16:31:10
  */
 const { Controller } = require("egg");
 
@@ -14,6 +14,29 @@ const { Controller } = require("egg");
 class UserController extends Controller {
     constructor(ctx) {
         super(ctx);
+    }
+
+    /**
+     * @summary 获取用户信息By username
+     * @description 
+     * @router get /api/user/getUserByUsername
+     * @request body getUserByUsername *body（DTO）
+     * @response 200 baseResponse 创建成功（DTO）
+     * @apikey
+     */
+    async getUserByUsername() {
+        let { ctx, service, helper, config } = this;
+        // 校验参数
+
+        let username = ctx.query.username || "";
+        if (!username) {
+            return ctx.throw(404, "用户名不能为空");
+        }
+        const user = await service.user.getUserByName(username);
+        if (!user) {
+            return ctx.throw(404, "用户不存在");
+        }
+        ctx.helper.success({ ctx, res: user });
     }
 
     /**
@@ -83,7 +106,9 @@ class UserController extends Controller {
         const { ctx, service } = this;
         console.log(this.app.foo());
         const uid = ctx.state.user.data.uid;
-        const result = await service.user.getUserById(uid);
+        const result = await service.user.getUserById(uid).catch((err) => {
+            ctx.throw(404, err);
+        });;
         ctx.helper.success({ ctx, res: result })
     }
 

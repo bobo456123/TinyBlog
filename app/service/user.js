@@ -4,7 +4,7 @@
  * @Author: IT飞牛
  * @Date: 2021-08-16 00:02:57
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-10-21 22:52:41
+ * @LastEditTime: 2021-10-31 11:44:38
  */
 const { Service } = require("egg");
 const { Op } = require("sequelize");
@@ -37,11 +37,12 @@ class UserService extends Service {
      */
     async getUsers(param) {
         const { ctx, app, service, config } = this;
-        const { index = 1, pagesize = config.G.pagesize, keyword = "", order = ["created", "desc"] } = param;
+        const { index = 1, pagesize = config.G.pagesize, keyword = "", order = ["uid", "desc"] } = param;
         const option = {
             limit: pagesize,
             offset: (index - 1) * pagesize,
             attributes: ["uid", "username", "email", "url", "screenName", "group"],
+            order: [order],
             include: [
                 {
                     model: ctx.model.Content,

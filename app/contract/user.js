@@ -4,10 +4,18 @@
  * @Author: IT飞牛
  * @Date: 2021-08-15 19:58:16
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-10-21 23:20:58
+ * @LastEditTime: 2021-10-31 16:37:39
  */
 // /app/contract/user.js
 module.exports = {
+    getUserByUsername: {
+        username: {
+            type: 'string',
+            required: true,
+            description: '用户名',
+            example: 'user09'
+        },
+    },
     addUser: {
         username: {
             type: 'string',
