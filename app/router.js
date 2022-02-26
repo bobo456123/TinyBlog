@@ -35,6 +35,7 @@ module.exports = app => {
   router.get(`/${version}/api/getCurrentInfo`, controller.api.user.getCurrentInfo);
   router.get(`/${version}/api/comment/getLastestComments`, controller.api.comment.getLastestComments);
 
+  //用户
   router.resources(`/${version}/api/user`, controller.api.user);
   router.get(`/${version}/api/user/getUserByUsername`, controller.api.user.getUserByUsername);
   router.resources(`/${version}/api/post`, controller.api.post);

@@ -36,7 +36,7 @@ class UserController extends Controller {
         if (!user) {
             return ctx.throw(404, "用户不存在");
         }
-        ctx.helper.success({ ctx, res: user });
+        ctx.helper.success({ ctx, data: user });
     }
 
     /**
@@ -52,7 +52,7 @@ class UserController extends Controller {
         let index = parseInt(query.index) || 1,
             pagesize = parseInt(query.pagesize) || config.G.pagesize;
         let result = await service.user.getUsers({ index, pagesize });
-        ctx.helper.success({ ctx, res: { index: index, data: result } });
+        ctx.helper.success({ ctx, data: { index: index, data: result } });
     }
 
     /**
@@ -71,9 +71,29 @@ class UserController extends Controller {
         const payload = ctx.request.body || {};
 
         // 调用 Service 进行业务处理
-        const res = await service.user.addUser(payload)
+        const data = await service.user.addUser(payload)
         // 设置响应内容和响应状态码
-        ctx.helper.success({ ctx, res })
+        ctx.helper.success({ ctx, data })
+    }
+
+    /**
+     * @summary 删除用户
+     * @description 
+     * @router DELETE /api/user/16
+     * @response 200 baseResponse 创建成功（DTO）
+     * @apikey
+     */
+    async destroy() {
+        const { ctx, service } = this
+
+        let ids=ctx.params.id;
+        if(!ids||!parseInt(ids)){
+            return ctx.helper.error({ ctx, type:"PARAM_ERROR" })
+        }
+        // 调用 Service 进行业务处理
+        const data = await service.user.deleteUser(ids.split(","));
+        // 设置响应内容和响应状态码
+        ctx.helper.success({ ctx, data })
     }
 
     /**
@@ -91,9 +111,9 @@ class UserController extends Controller {
         // 组装参数
         const payload = ctx.request.body || {}
         // 调用 Service 进行业务处理
-        const res = await service.userAccess.login(payload)
+        const data = await service.userAccess.login(payload)
         // 设置响应内容和响应状态码
-        ctx.helper.success({ ctx, res })
+        ctx.helper.success({ ctx, data })
     }
 
     /**
@@ -109,7 +129,7 @@ class UserController extends Controller {
         const result = await service.user.getUserById(uid).catch((err) => {
             ctx.throw(404, err);
         });;
-        ctx.helper.success({ ctx, res: result })
+        ctx.helper.success({ ctx, data: result })
     }
 
     /**

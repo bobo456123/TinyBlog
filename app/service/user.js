@@ -30,6 +30,28 @@ class UserService extends Service {
     }
 
     /**
+     * @name: 删除用户
+     * @msg: 
+     * @param {string}
+     * @return {boolean}
+     */
+    async deleteUser(ids) {
+        const { ctx, app, service, config } = this;
+
+        const result = await ctx.model.User.destroy({
+            where: {
+                uid: {
+                    [Op.in]: ids
+                }
+            }
+        }).catch((err) => {
+            ctx.throw(404, err);
+        });
+
+        return result;
+    }
+
+    /**
      * @name: 获取用户列表
      * @msg: 
      * @param {object}

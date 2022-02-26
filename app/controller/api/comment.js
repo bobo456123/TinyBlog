@@ -23,7 +23,7 @@ class CommentController extends Controller {
         let { limit = 9 } = ctx.query;
         limit = parseInt(limit);
         let result = await service.comment.getLastestComments(limit);
-        ctx.helper.success({ ctx, res: result });
+        ctx.helper.success({ ctx, data: result });
     }
 }
 

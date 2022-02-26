@@ -7,6 +7,7 @@
  * @LastEditTime: 2021-08-16 00:24:06
  */
 let errCode = new Map();
-errCode.set("1", "数据不存在");
+errCode.set("DATA_NOT_EXIST", { Code: 1, Msg: "数据不存在" });
+errCode.set("PARAM_ERROR", { Code: 2, Msg: "参数错误" });
 
 module.exports = errCode;

@@ -3,13 +3,22 @@ const { slice, stubTrue } = require('lodash');
 //helper.js也运用在nunjuck模板中的过滤器
 
 var _ = require('lodash');
+var errCode = require('../errCode.js');
 
 module.exports = {
-    success: function ({ ctx, res = "", message = "请求成功！" }) {
+    success: function ({ ctx, data = "", message = "请求成功！" }) {
         ctx.body = {
             code: 0,
-            data: res,
+            data: data,
             message: message
+        };
+        ctx.status = 200;
+    },
+    error: function ({ ctx, type = "PARAM_ERROR",data="", message = "请求错误！" }) {
+        ctx.body = {
+            code: errCode[type].Code,
+            data: data,
+            message: errCode[type].Msg||message
         };
         ctx.status = 200;
     },

@@ -30,18 +30,18 @@ class PostController extends Controller {
         let index = parseInt(query.index) || 1,
             pagesize = parseInt(query.pagesize) || config.G.pagesize;
         let result = await service.content.getContents({ index, pagesize });
-        ctx.helper.success({ ctx, res: { index: index, data: result } });
+        ctx.helper.success({ ctx, data: { index: index, data: result } });
     }
 
     async show() {
         let { ctx, service, helper, config } = this;
         let { id } = ctx.params;
         if (!id) {
-            ctx.helper.error({ ctx, res: archive });
+            ctx.helper.error({ ctx, type: "PARAM_ERROR" });
         }
         let archive = await service.content.findOne(id);
 
-        ctx.helper.success({ ctx, res: archive });
+        ctx.helper.success({ ctx, data: archive });
     }
 }
 
