@@ -35,7 +35,7 @@ class UserService extends Service {
      * @param {string}
      * @return {boolean}
      */
-    async deleteUser(ids) {
+    async destroyUsers(ids) {
         const { ctx, app, service, config } = this;
 
         const result = await ctx.model.User.destroy({
@@ -43,6 +43,27 @@ class UserService extends Service {
                 uid: {
                     [Op.in]: ids
                 }
+            }
+        }).catch((err) => {
+            ctx.throw(404, err);
+        });
+
+        return result;
+    }
+
+    /**
+     * @name: 更新用户
+     * @msg: 
+     * @param {string}
+     * @return {boolean}
+     */
+    async update(id, param) {
+        const { ctx, app, service, config } = this;
+
+        param.password && (param.password = await ctx.genHash(param.password));
+        const result = await ctx.model.User.update(param, {
+            where: {
+                uid: id
             }
         }).catch((err) => {
             ctx.throw(404, err);
@@ -113,7 +134,9 @@ class UserService extends Service {
                 uid: uid
             }
         };
-        let result = await ctx.model.User.findOne(param)
+        let result = await ctx.model.User.findOne(param).catch((err) => {
+            ctx.throw(404, err);
+        });
         return result;
     }
 

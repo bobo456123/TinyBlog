@@ -79,21 +79,90 @@ class UserController extends Controller {
     /**
      * @summary 删除用户
      * @description 
-     * @router DELETE /api/user/16
+     * @router DELETE /api/user/{id}
+     * @request path string id 用户ids
      * @response 200 baseResponse 创建成功（DTO）
      * @apikey
      */
     async destroy() {
         const { ctx, service } = this
 
-        let ids=ctx.params.id;
-        if(!ids||!parseInt(ids)){
-            return ctx.helper.error({ ctx, type:"PARAM_ERROR" })
+        let id = ctx.params.id;
+        if (!id || !parseInt(id)) {
+            return ctx.helper.error({ ctx, type: "PARAM_ERROR" })
         }
         // 调用 Service 进行业务处理
-        const data = await service.user.deleteUser(ids.split(","));
+        const data = await service.user.deleteUser([id]);
         // 设置响应内容和响应状态码
         ctx.helper.success({ ctx, data })
+    }
+
+    /**
+    * @summary 批量删除用户
+    * @description 
+    * @router DELETE /api/user/destroyUsers
+    * @request body destroyUsers *body（DTO）
+    * @response 200 baseResponse 创建成功（DTO）
+    * @apikey
+    */
+    async destroyUsers() {
+        const { ctx, service } = this
+
+        // 校验参数
+        ctx.validate(ctx.rule.destroyUsers);
+
+        let ids = ctx.request.body.ids;
+        // if (!ids || !ids.length) {
+        //     return ctx.helper.error({ ctx, type: "PARAM_ERROR" })
+        // }
+        // 调用 Service 进行业务处理
+        const data = await service.user.destroyUsers(ids);
+        // 设置响应内容和响应状态码
+        ctx.helper.success({ ctx, data })
+    }
+
+    /**
+     * @summary 更新用户
+     * @description 
+     * @router PUT /api/user/{id}
+     * @request path number id 用户id
+     * @request body addUser *body（DTO）
+     * @response 200 baseResponse 创建成功（DTO）
+     * @apikey
+     */
+    async update() {
+        const { ctx, service } = this
+
+        // 校验参数
+        ctx.validate(ctx.rule.updateUser);
+
+        let id = ctx.params.id;
+        if (!id || !parseInt(id)) {
+            return ctx.helper.error({ ctx, type: "PARAM_ERROR" })
+        }
+        // 调用 Service 进行业务处理
+        const data = await service.user.update(id, ctx.request.body);
+        ctx.helper.success({ ctx, data })
+    }
+
+    /**
+     * @summary 编辑用户
+     * @description 
+     * @router GET /api/user/{id}/edit
+     * @request path number id 用户id
+     * @response 200 baseResponse 创建成功（DTO）
+     * @apikey
+     */
+    async edit() {
+        const { ctx, service } = this
+
+        let id = ctx.params.id;
+        if (!id || !parseInt(id)) {
+            return ctx.helper.error({ ctx, type: "PARAM_ERROR" })
+        }
+        // 调用 Service 进行业务处理
+        const data = await service.user.getUserById(id);
+        ctx.helper.success({ ctx, data });
     }
 
     /**
@@ -126,9 +195,7 @@ class UserController extends Controller {
         const { ctx, service } = this;
         console.log(this.app.foo());
         const uid = ctx.state.user.data.uid;
-        const result = await service.user.getUserById(uid).catch((err) => {
-            ctx.throw(404, err);
-        });;
+        const result = await service.user.getUserById(uid);
         ctx.helper.success({ ctx, data: result })
     }
 

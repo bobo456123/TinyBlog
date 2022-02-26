@@ -65,6 +65,64 @@ module.exports = {
             example: 'administrator'
         },
     },
+    updateUser: {
+        username: {
+            type: 'string',
+            required: false,
+            description: '用户名',
+            example: 'user01',
+            format: /^\w{5,12}$/,
+        },
+        email: {
+            type: 'string',
+            required: false,
+            description: '电子邮箱地址',
+            example: 'user01@tinyblog.com',
+            format: /.+\@\w+\.\w+/,
+        },
+        screenName: {
+            type: 'string',
+            required: false,
+            description: '用户昵称',
+            example: '管理员不在家'
+        },
+        password: {
+            type: 'string',
+            required: false,
+            description: '密码',
+            example: '123',
+            format: /^\w{3,18}$/,
+        },
+        confirm: {
+            type: 'string',
+            required: false,
+            description: '用户密码确认',
+            example: '123',
+            format: /^\w{3,18}$/,
+        },
+        url: {
+            type: 'string',
+            required: false,
+            description: '个人主页地址',
+            example: 'http://www.tinyblog.6feel.com',
+            format: /^https?:\/\//
+        },
+        group: {
+            type: 'string',
+            required: false,
+            description: '用户组',
+            example: 'administrator'
+        },
+    },
+    destroyUsers: {
+        ids: {
+            type: 'array',
+            itemType: 'number',
+            required: true,
+            description: '用户ids',
+            example: [11, 13],
+        },
+    },
     loginRequest: {
         username: {
             type: 'string',

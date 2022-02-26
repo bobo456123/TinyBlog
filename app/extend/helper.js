@@ -14,11 +14,11 @@ module.exports = {
         };
         ctx.status = 200;
     },
-    error: function ({ ctx, type = "PARAM_ERROR",data="", message = "请求错误！" }) {
+    error: function ({ ctx, type = "PARAM_ERROR", data = "", message = "请求错误！" }) {
         ctx.body = {
-            code: errCode[type].Code,
+            code: errCode.get(type).Code,
             data: data,
-            message: errCode[type].Msg||message
+            message: errCode.get(type).Msg || message
         };
         ctx.status = 200;
     },
