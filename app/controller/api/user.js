@@ -50,8 +50,9 @@ class UserController extends Controller {
         let { ctx, service, helper, config } = this;
         let query = ctx.query;
         let index = parseInt(query.index) || 1,
-            pagesize = parseInt(query.pagesize) || config.G.pagesize;
-        let result = await service.user.getUsers({ index, pagesize });
+            pagesize = parseInt(query.pagesize) || config.G.pagesize,
+            keyword = query.keyword || "";
+        let result = await service.user.getUsers({ index, pagesize, keyword });
         ctx.helper.success({ ctx, data: { index: index, data: result } });
     }
 

@@ -60,7 +60,11 @@ class UserService extends Service {
     async update(id, param) {
         const { ctx, app, service, config } = this;
 
-        param.password && (param.password = await ctx.genHash(param.password));
+        if (!!param.password.trim()) {
+            param.password = await ctx.genHash(param.password)
+        } else {
+            delete (param.password);
+        }
         const result = await ctx.model.User.update(param, {
             where: {
                 uid: id
@@ -93,8 +97,14 @@ class UserService extends Service {
                     as: 'content',
                 }
             ],
-
         };
+        if (!!keyword) {
+            option.where = {
+                username: {
+                    [Op.like]: keyword
+                }
+            };
+        }
         let result = await ctx.model.User.findAll(option)
         return result;
     }
