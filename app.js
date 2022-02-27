@@ -10,8 +10,6 @@ class AppBootHook {
     constructor(app) {
         this.app = app;
 
-        //支持路径别名。package.json 中添加“_moduleAliases”
-        require('module-alias/register');
 
         //将错误错误中间件放在最外层，这里是整个app的最外成，执行顺序最靠前；
         const errorHandle = require("@/middleware/error_handler.js")({}, this.app);
@@ -24,7 +22,7 @@ class AppBootHook {
         // this is the last chance to modify the config.
 
         //创建nunjuck模板引擎过滤器
-        const filters = require("./app/extend/helper.js");
+        const filters = require("@/extend/helper.js");
         const enableKeys = ["date", "dateFormat", "cutString"];
         for (let key in filters) {
             enableKeys.indexOf(key) >= 0 && this.app.nunjucks.addFilter(key, filters[key]);

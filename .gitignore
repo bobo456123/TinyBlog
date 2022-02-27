@@ -2,6 +2,7 @@ logs/
 npm-debug.log
 yarn-error.log
 node_modules/
+node_modules_/
 package-lock.json
 yarn.lock
 coverage/
@@ -12,3 +13,4 @@ run/
 *.un~
 typings/
 .nyc_output/
+*.code-workspace

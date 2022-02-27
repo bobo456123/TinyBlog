@@ -3,7 +3,7 @@ const { slice, stubTrue } = require('lodash');
 //helper.js也运用在nunjuck模板中的过滤器
 
 var _ = require('lodash');
-var errCode = require('../errCode.js');
+var errCode = require('@/errCode.js');
 
 module.exports = {
     success: function ({ ctx, data = "", message = "请求成功！" }) {

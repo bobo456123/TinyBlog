@@ -8,6 +8,9 @@
  */
 'use strict';
 
+//支持路径别名。package.json 中添加“_moduleAliases”
+require('module-alias/register');
+
 /** @type Egg.EggPlugin */
 module.exports = {
   // had enabled by egg
