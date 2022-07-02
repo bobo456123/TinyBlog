@@ -114,7 +114,7 @@ module.exports = {
             example: 'administrator'
         },
     },
-    destroyUsers: {
+    deleteUsers: {
         ids: {
             type: 'array',
             itemType: 'number',

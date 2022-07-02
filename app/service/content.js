@@ -2,6 +2,44 @@ const { Service } = require('egg');
 const { Op } = require("sequelize");
 
 class ContentService extends Service {
+    /**
+     * @name: 新增帖子
+     * @msg: 
+     * @param {object}
+     * @return {number}
+     */
+    async addPost(param) {
+        const { ctx, service } = this;
+        param.authorId = ctx.state.user.data.uid;
+        // param.type="post";
+        const content = await ctx.model.Content.create(param).catch((err) => {
+            ctx.throw(500, err);
+        });
+        return content.cid;
+    }
+
+    /**
+     * @name: 批量删除帖子
+     * @msg: 
+     * @param {string}
+     * @return {boolean}
+     */
+    async deletePosts(ids) {
+        const { ctx, app, service, config } = this;
+
+        const result = await ctx.model.Content.destroy({
+            where: {
+                cid: {
+                    [Op.in]: ids
+                }
+            }
+        }).catch((err) => {
+            ctx.throw(404, err);
+        });
+
+        return result;
+    }
+
     async getEarliestOne() {
         const { ctx, service } = this;
         const query = {
@@ -137,10 +175,10 @@ class ContentService extends Service {
                 {
                     model: ctx.model.Meta,
                     as: 'meta',
-                    attributes: ["mid", "username", "type"]
+                    attributes: ["mid", "name", "type"]
                 }
             ],
-            raw: false,
+            // raw: false,
             where: {
                 cid: id
             }

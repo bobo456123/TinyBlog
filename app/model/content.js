@@ -14,23 +14,28 @@ module.exports = app => {
 
         title: STRING(200),
         slug: STRING(200),
-        created: INTEGER(10).UNSIGNED,
-        modified: INTEGER(10).UNSIGNED,
         text: TEXT,
 
         order: INTEGER(10).UNSIGNED,
         authorId: INTEGER(10).UNSIGNED,
         template: STRING(32),
-        type: STRING(16),
-        status: STRING(16),
+        type: { type: STRING(16), defaultValue: "post" },
+        status: { type: STRING(16), defaultValue: "publish" },
 
         password: STRING(32),
-        commentsNum: INTEGER(10).UNSIGNED,
-        allowComment: CHAR(1),
-        allowPing: CHAR(1),
-        allowFeed: CHAR(1),
+        commentsNum: { type: INTEGER(10).UNSIGNED, defaultValue: 0 },
+        allowComment: { type: CHAR(1), defaultValue: "1" },
+        allowPing: { type: CHAR(1), defaultValue: "1" },
+        allowFeed: { type: CHAR(1), defaultValue: "1" },
 
-        parent: INTEGER(10).UNSIGNED
+        parent: { type: INTEGER(10).UNSIGNED, defaultValue: 0 },
+    }, {
+        // 不要忘记启用时间戳！
+        timestamps: true,
+        // 想要 createdAt 但是希望名称叫做 created
+        createdAt: "created",
+        // 想要 updatedAt 但是希望名称叫做 modified
+        updatedAt: "modified"
     });
 
     //所属哪个班级，指向班级主键  这是多对一
@@ -40,7 +45,7 @@ module.exports = app => {
             targetKey: "uid",
             as: "user"
         });
-        
+
         app.model.User.hasMany(app.model.Content, {
             foreignKey: "authorId",
             targetKey: "uid",

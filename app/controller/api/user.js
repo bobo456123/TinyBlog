@@ -53,7 +53,7 @@ class UserController extends Controller {
             pagesize = parseInt(query.pagesize) || config.G.pagesize,
             keyword = query.keyword || "";
         let result = await service.user.getUsers({ index, pagesize, keyword });
-        ctx.helper.success({ ctx, data: { index: index, data: result } });
+        ctx.helper.success({ ctx, data: { index: index, list: result } });
     }
 
     /**
@@ -101,8 +101,8 @@ class UserController extends Controller {
     /**
     * @summary 批量删除用户
     * @description 
-    * @router DELETE /api/user/destroyUsers
-    * @request body destroyUsers *body（DTO）
+    * @router DELETE /api/user/deleteUsers
+    * @request body deleteUsers *body（DTO）
     * @response 200 baseResponse 创建成功（DTO）
     * @apikey
     */

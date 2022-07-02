@@ -37,9 +37,11 @@ module.exports = app => {
 
   //用户
   router.delete(`/${version}/api/user/deleteUsers`, controller.api.user.deleteUsers);
-  
   router.resources(`/${version}/api/user`, controller.api.user);
   router.get(`/${version}/api/user/getUserByUsername`, controller.api.user.getUserByUsername);
+
+  //帖子
   router.resources(`/${version}/api/post`, controller.api.post);
+  router.delete(`/${version}/api/post/deletePosts`, controller.api.post.deletePosts);
 
 };
