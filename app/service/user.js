@@ -60,7 +60,7 @@ class UserService extends Service {
     async update(id, param) {
         const { ctx, app, service, config } = this;
 
-        if (!!param.password.trim()) {
+        if (!!param.password&&!!param.password.trim()) {
             param.password = await ctx.genHash(param.password)
         } else {
             delete (param.password);
@@ -101,7 +101,7 @@ class UserService extends Service {
         if (!!keyword) {
             option.where = {
                 username: {
-                    [Op.like]: keyword
+                    [Op.like]: "%"+keyword+"%"
                 }
             };
         }

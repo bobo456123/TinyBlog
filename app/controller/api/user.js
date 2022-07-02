@@ -106,7 +106,7 @@ class UserController extends Controller {
     * @response 200 baseResponse 创建成功（DTO）
     * @apikey
     */
-    async destroyUsers() {
+    async deleteUsers() {
         const { ctx, service } = this
 
         // 校验参数
