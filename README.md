@@ -21,6 +21,11 @@ $ open http://localhost:7001/
 ```bash
 $ npm start
 $ npm stop
+
+//  部署到docker
+$ docker build -t back_img .
+$ docker run -d -p 7001:7001 --name back_container back_img
+//正常访问  localhost:7001
 ```
 
 ### npm scripts

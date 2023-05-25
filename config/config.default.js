@@ -61,8 +61,8 @@ module.exports = appInfo => {
   config.sequelize = {
     dialet: 'mysql',
     database: "tinyblog",
-    host: "localhost",
-    port: 3306,
+    host: "10.114.137.72",  //这里写上宿主机的ip或者远程mysql服务器ip
+    port: 3310,
     username: "root",
     password: "123123",
     timezone: "+08:00",
